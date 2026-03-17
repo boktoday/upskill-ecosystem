@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 1 Quiz</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 min-h-screen text-white p-8">
+  <div class="max-w-2xl mx-auto">
+    <h1 class="text-2xl font-bold mb-6">📝 Module 1 Quiz</h1>
+    
+    <div id="quiz">
+      <div class="bg-slate-800 rounded-xl p-6 mb-4">
+        <p class="text-lg mb-4">1. What is the primary difference between a chatbot and an AI agent?</p>
+        <div class="space-y-2">
+          <button onclick="answer(this, false)" class="w-full text-left p-3 rounded bg-slate-700 hover:bg-slate-600">A) Chatbots are smarter</button>
+          <button onclick="answer(this, true)" class="w-full text-left p-3 rounded bg-slate-700 hover:bg-slate-600">B) Agents are proactive, chatbots are reactive</button>
+          <button onclick="answer(this, false)" class="w-full text-left p-3 rounded bg-slate-700 hover:bg-slate-600">C) Chatbots use more memory</button>
+          <button onclick="answer(this, false)" class="w-full text-left p-3 rounded bg-slate-700 hover:bg-slate-600">D) There's no difference</button>
+        </div>
+      </div>
+      
+      <div class="bg-slate-800 rounded-xl p-6 mb-4">
+        <p class="text-lg mb-4">2. Which is NOT a core capability of AI agents?</p>
+        <div class="space-y-2">
+          <button onclick="answer(this, false)" class="w-full text-left p-3 rounded bg-slate-700 hover:bg-slate-600">A) Autonomous Execution</button>
+          <button onclick="answer(this, false)" class="w-full text-left p-3 rounded bg-slate-700 hover:bg-slate-600">B) Tool Use</button>
+          <button onclick="answer(this, false)" class="w-full text-left p-3 rounded bg-slate-700 hover:bg-slate-600">C) Writing Poetry</button>
+          <button onclick="answer(this, true)" class="w-full text-left p-3 rounded bg-slate-700 hover:bg-slate-600">D) All of the above</button>
+        </div>
+      </div>
+      
+      <div class="text-center mt-8">
+        <p id="score" class="text-xl">Score: 0/0</p>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    let correct = 0, total = 0;
+    function answer(btn, isCorrect) {
+      total++;
+      if (isCorrect) {
+        correct++;
+        btn.classList.add('bg-green-600');
+      } else {
+        btn.classList.add('bg-red-600');
+      }
+      btn.disabled = true;
+      document.getElementById('score').textContent = `Score: ${correct}/${total}`;
+    }
+  </script>
+</body>
+</html>
