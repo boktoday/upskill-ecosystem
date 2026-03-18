@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz - The Tech Stack of 2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 min-h-screen text-white p-8">
+  <div class="max-w-2xl mx-auto">
+    <h1 class="text-3xl font-bold mb-2 text-center">📝 Quiz: The Tech Stack of 2026</h1>
+    <p class="text-slate-400 text-center mb-8">Test your knowledge</p>
+    
+    <form id="quiz-form">
+      
+      <div class="question mb-6 p-4 bg-slate-800 rounded-lg" data-correct="1">
+        <p class="font-bold mb-3">1. What is LLM (Large Language Model)?</p>
+        <div class="options space-y-2">
+          <label class="flex items-center p-2 rounded hover:bg-slate-700 cursor-pointer">
+            <input type="radio" name="q1" value="wrong" class="mr-2">
+            <span>A completely different concept</span>
+          </label>
+          <label class="flex items-center p-2 rounded hover:bg-slate-700 cursor-pointer">
+            <input type="radio" name="q1" value="correct" class="mr-2">
+            <span>AI model trained on vast text data, capable of understanding and generating human-like text....</span>
+          </label>
+          <label class="flex items-center p-2 rounded hover:bg-slate-700 cursor-pointer">
+            <input type="radio" name="q1" value="wrong2" class="mr-2">
+            <span>Another alternative definition</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="question mb-6 p-4 bg-slate-800 rounded-lg" data-correct="2">
+        <p class="font-bold mb-3">2. What is API (Application Programming Interface)?</p>
+        <div class="options space-y-2">
+          <label class="flex items-center p-2 rounded hover:bg-slate-700 cursor-pointer">
+            <input type="radio" name="q2" value="wrong" class="mr-2">
+            <span>A completely different concept</span>
+          </label>
+          <label class="flex items-center p-2 rounded hover:bg-slate-700 cursor-pointer">
+            <input type="radio" name="q2" value="correct" class="mr-2">
+            <span>A set of rules allowing software applications to communicate. You ask, it answers....</span>
+          </label>
+          <label class="flex items-center p-2 rounded hover:bg-slate-700 cursor-pointer">
+            <input type="radio" name="q2" value="wrong2" class="mr-2">
+            <span>Another alternative definition</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="question mb-6 p-4 bg-slate-800 rounded-lg" data-correct="3">
+        <p class="font-bold mb-3">3. What is Webhook?</p>
+        <div class="options space-y-2">
+          <label class="flex items-center p-2 rounded hover:bg-slate-700 cursor-pointer">
+            <input type="radio" name="q3" value="wrong" class="mr-2">
+            <span>A completely different concept</span>
+          </label>
+          <label class="flex items-center p-2 rounded hover:bg-slate-700 cursor-pointer">
+            <input type="radio" name="q3" value="correct" class="mr-2">
+            <span>HTTP callback that notifies you when something happens. Like a doorbell - alerts you to events....</span>
+          </label>
+          <label class="flex items-center p-2 rounded hover:bg-slate-700 cursor-pointer">
+            <input type="radio" name="q3" value="wrong2" class="mr-2">
+            <span>Another alternative definition</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="question mb-6 p-4 bg-slate-800 rounded-lg" data-correct="4">
+        <p class="font-bold mb-3">4. What is Function Calling?</p>
+        <div class="options space-y-2">
+          <label class="flex items-center p-2 rounded hover:bg-slate-700 cursor-pointer">
+            <input type="radio" name="q4" value="wrong" class="mr-2">
+            <span>A completely different concept</span>
+          </label>
+          <label class="flex items-center p-2 rounded hover:bg-slate-700 cursor-pointer">
+            <input type="radio" name="q4" value="correct" class="mr-2">
+            <span>Ability for AI to call custom functions/APIs during generation to perform actions....</span>
+          </label>
+          <label class="flex items-center p-2 rounded hover:bg-slate-700 cursor-pointer">
+            <input type="radio" name="q4" value="wrong2" class="mr-2">
+            <span>Another alternative definition</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="question mb-6 p-4 bg-slate-800 rounded-lg" data-correct="5">
+        <p class="font-bold mb-3">5. What is Prompt Engineering?</p>
+        <div class="options space-y-2">
+          <label class="flex items-center p-2 rounded hover:bg-slate-700 cursor-pointer">
+            <input type="radio" name="q5" value="wrong" class="mr-2">
+            <span>A completely different concept</span>
+          </label>
+          <label class="flex items-center p-2 rounded hover:bg-slate-700 cursor-pointer">
+            <input type="radio" name="q5" value="correct" class="mr-2">
+            <span>The practice of designing effective inputs to get desired outputs from LLMs....</span>
+          </label>
+          <label class="flex items-center p-2 rounded hover:bg-slate-700 cursor-pointer">
+            <input type="radio" name="q5" value="wrong2" class="mr-2">
+            <span>Another alternative definition</span>
+          </label>
+        </div>
+      </div>
+
+      
+      <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg">
+        Submit Answers
+      </button>
+    </form>
+    
+    <div id="result" class="hidden mt-6 p-4 rounded-lg text-center">
+    </div>
+  </div>
+  
+  <script>
+    document.getElementById('quiz-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      let score = 0;
+      const total = 5;
+      
+      for (let i = 1; i <= total; i++) {
+        const selected = document.querySelector('input[name="q' + i + '"]:checked');
+        if (selected && selected.value === 'correct') {
+          score++;
+        }
+      }
+      
+      const result = document.getElementById('result');
+      result.classList.remove('hidden', 'bg-red-600', 'bg-green-600');
+      
+      if (score >= total * 0.7) {
+        result.classList.add('bg-green-600');
+        result.innerHTML = '<h3 class="text-2xl font-bold">🎉 Great job! Score: ' + score + '/' + total + '</h3>';
+      } else {
+        result.classList.add('bg-red-600');
+        result.innerHTML = '<h3 class="text-2xl font-bold">Keep practicing! Score: ' + score + '/' + total + '</h3>';
+      }
+    });
+  </script>
+</body>
+</html>

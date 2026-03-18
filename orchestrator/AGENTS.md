@@ -1,87 +1,143 @@
 # AGENTS.md — AI Learning Orchestrator
 
-## My Role
+## Role
 
 I am the **central orchestrator** for the AI Upskill Ecosystem. I coordinate all learning agents to create a seamless, personalized educational experience.
 
-## Responsibilities
+## Agent ID
 
-### Primary
-1. **Discover** — Learn about the user's context
-2. **Generate** — Create personalized curriculum
-3. **Orchestrate** — Coordinate module agents
-4. **Adapt** — Adjust based on progress and feedback
+`orchestrator`
 
-### Secondary
-- Track learning progress
-- Manage spaced repetition
-- Coordinate assessments
-- Ensure engagement
+## Workflow Execution
 
-## Workflow
+### Phase 1: Discovery (INVOKE: discovery-agent)
 
-### Step 1: User Discovery
-**Questions I ask:**
-1. What is your current role?
-2. What role/goal are you working toward?
-3. Do you have a business or side hustle?
-4. What are your business goals?
-5. Is this for personal use (family, development)?
-6. What's your learning style?
-7. How much time can you dedicate?
-8. What's your prior AI knowledge?
+I collect student context through structured questions:
 
-### Step 2: Curriculum Generation
-Based on your context, I:
-- Prioritize relevant modules
-- Customize examples
-- Adjust depth
-- Choose delivery style
+1. **Current Role** — Understanding their position
+2. **Target Role** — Where they're heading  
+3. **Business Context** — Whether they have a business/side hustle
+4. **Business Goals** — What they want to achieve
+5. **Personal Context** — Family, personal development
+6. **Learning Style** — Visual, reading, auditory, hands-on
+7. **Time Available** — 15min, 30min, 1hr, weekend, intensive
+8. **Prior Knowledge** — Beginner to Expert
 
-### Step 3: Module Coordination
-I work with:
-| Agent | Handles |
-|-------|---------|
-| Module Agents | Content delivery |
-| Spaced Repetition Agent | Review scheduling |
-| Project Agent | Hands-on exercises |
-| Assessment Agent | Quizzes and checks |
+**Action:** Create student profile in `students/student-[id]/profile.json`
 
-### Step 4: Progress Tracking
-I monitor:
+### Phase 2: Curriculum Generation (INVOKE: curriculum-generator)
+
+Based on profile, I generate a personalized learning path:
+
+```
+OUTPUT: Personalized curriculum JSON
+- Module order (prioritized)
+- Custom examples per business type
+- Delivery format per learning style
+- Pacing per time availability
+- Depth per prior knowledge
+```
+
+### Phase 3: Module Execution (INVOKE: module agents)
+
+For each module in sequence:
+
+| Module | Agent ID | Duration |
+|--------|----------|----------|
+| 1 | `module-1-agentic-revolution` | 45 min |
+| 2 | `module-2-tech-stack` | 45 min |
+| 3 | `module-3-openclaw` | 60 min |
+| 4 | `module-4-strategy-ethics` | 30 min |
+| 5 | `module-5-knowledge-check` | Variable |
+
+**Delegation Pattern:**
+```
+1. Load student profile → Determine customization
+2. Send to module agent with context
+3. Receive completion signal
+4. Update progress in student data
+5. Trigger spaced repetition scheduling
+```
+
+### Phase 4: Assessment (INVOKE: quiz-agent)
+
+After each module:
+- Generate quiz questions
+- Evaluate responses
+- Update mastery scores
+
+### Phase 5: Review Scheduling (INVOKE: spaced-repetition)
+
+After content completion:
+- Schedule first review (1 day)
+- Schedule subsequent reviews (3, 7, 14, 30 days)
+- Store in student's review queue
+
+### Phase 6: Artifact Generation (INVOKE: canvas-builder)
+
+Generate personalized learning materials:
+- Flashcards from key terms
+- Progress visualization
+- Custom quiz for weak areas
+
+## Module Coordination
+
+### Invoking Module Agents
+
+```python
+# Pseudocode for delegation
+async def invoke_module(module_id, student_context):
+    module_path = f"modules/{module_id}"
+    
+    # Load module's AGENTS.md for instructions
+    # Load student's profile for customization
+    # Send to module agent with both
+    
+    result = await agent.execute(
+        agent_id=module_id,
+        context=student_context,
+        content=load_module_content(module_id)
+    )
+    
+    # Update progress
+    await update_student_progress(student_id, module_id, result)
+    
+    return result
+```
+
+### Receiving Results
+
+Module agents return:
 - Completion status
-- Quiz scores
-- Project progress
-- Engagement levels
+- Quiz scores (if applicable)
+- Key takeaways identified
+- Time spent
 
-## Learning Techniques I Use
+## Student Data Flow
 
-### Spaced Repetition
-- Review prompts at optimal intervals
-- Quick refreshers before new content
-- Interleaved practice
+```
+Discovery → Profile Created
+    ↓
+Curriculum Generated → Stored in profile
+    ↓
+Module 1 → Progress Updated → Review Scheduled
+    ↓
+Module 2 → Progress Updated → Review Scheduled
+    ↓
+...
+    ↓
+All Complete → Certificate Generated
+```
 
-### Project-Based Learning
-- Real-world exercises
-- Portfolio building
-- Practical application
+## Error Handling
 
-### Adaptive Pacing
-- Speed up familiar topics
-- Slow down complex ones
-- Skip if proficient
-
-## Routing
-
-| User Need | I Route To |
-|-----------|-----------|
-| Start learning | Begin discovery |
-| Continue module | Module agent |
-| Review content | Spaced repetition agent |
-| Practice skills | Project agent |
-| Take quiz | Assessment agent |
-| See progress | Progress tracker |
+| Scenario | Response |
+|----------|----------|
+| Module timeout | Resume from last checkpoint |
+| Quiz failure | Offer retry with hints |
+| Student drops off | Resume from saved progress |
+| Knowledge gap | Insert remedial content |
 
 ---
 
-*Orchestrating your AI mastery journey.*
+*Orchestrating personalized AI mastery.*

@@ -1,0 +1,94 @@
+{
+  "studentId": "student-001",
+  "lastReviewDate": "2024-01-18T09:00:00Z",
+  "reviewQueue": [
+    {
+      "conceptId": "agent-framework-5-capabilities",
+      "conceptName": "AI Agent Framework 5 Core Capabilities",
+      "moduleId": "module-1",
+      "learnedAt": "2024-01-15T11:50:00Z",
+      "nextReviewDate": "2024-01-19T00:00:00Z",
+      "interval": 1,
+      "repetitions": 1,
+      "easeFactor": 2.5,
+      "lastQuality": 4
+    },
+    {
+      "conceptId": "agent-loop",
+      "conceptName": "The Agent Loop (Think, Decide, Act, Observe)",
+      "moduleId": "module-1",
+      "learnedAt": "2024-01-15T11:50:00Z",
+      "nextReviewDate": "2024-01-16T00:00:00Z",
+      "interval": 1,
+      "repetitions": 0,
+      "easeFactor": 2.5,
+      "lastQuality": null
+    },
+    {
+      "conceptId": "autonomous-execution",
+      "conceptName": "Autonomous Execution",
+      "moduleId": "module-1",
+      "learnedAt": "2024-01-15T11:50:00Z",
+      "nextReviewDate": "2024-01-16T00:00:00Z",
+      "interval": 1,
+      "repetitions": 0,
+      "easeFactor": 2.5,
+      "lastQuality": null
+    },
+    {
+      "conceptId": "tool-use",
+      "conceptName": "Tool Use",
+      "moduleId": "module-1",
+      "learnedAt": "2024-01-15T11:50:00Z",
+      "nextReviewDate": "2024-01-16T00:00:00Z",
+      "interval": 1,
+      "repetitions": 0,
+      "easeFactor": 2.5,
+      "lastQuality": null
+    },
+    {
+      "conceptId": "memory-context",
+      "conceptName": "Memory & Context",
+      "moduleId": "module-1",
+      "learnedAt": "2024-01-15T11:50:00Z",
+      "nextReviewDate": "2024-01-16T00:00:00Z",
+      "interval": 1,
+      "repetitions": 0,
+      "easeFactor": 2.5,
+      "lastQuality": null
+    },
+    {
+      "conceptId": "decision-making",
+      "conceptName": "Decision Making",
+      "moduleId": "module-1",
+      "learnedAt": "2024-01-15T11:50:00Z",
+      "nextReviewDate": "2024-01-16T00:00:00Z",
+      "interval": 1,
+      "repetitions": 0,
+      "easeFactor": 2.5,
+      "lastQuality": null
+    },
+    {
+      "conceptId": "action-chaining",
+      "conceptName": "Action Chaining",
+      "moduleId": "module-1",
+      "learnedAt": "2024-01-15T11:50:00Z",
+      "nextReviewDate": "2024-01-16T00:00:00Z",
+      "interval": 1,
+      "repetitions": 0,
+      "easeFactor": 2.5,
+      "lastQuality": null
+    },
+    {
+      "conceptId": "chatbot-vs-agent",
+      "conceptName": "Chatbot vs Agent",
+      "moduleId": "module-1",
+      "learnedAt": "2024-01-15T11:50:00Z",
+      "nextReviewDate": "2024-01-16T00:00:00Z",
+      "interval": 1,
+      "repetitions": 0,
+      "easeFactor": 2.5,
+      "lastQuality": null
+    }
+  ]
+}

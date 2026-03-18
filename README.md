@@ -339,9 +339,50 @@ openclaw gateway restart
 
 ## Requirements
 
-- OpenClaw installed
-- Python 3 (for scraper)
-- Internet connection (for initial setup)
+- **OpenClaw** — Core platform for running agents
+- **Python 3.8+** — For knowledge scraper and utilities
+  - Uses only Python standard library (no pip install needed)
+- **Local OpenClaw docs** — For knowledge base (path configured in `knowledge/scraper.py`)
+
+### Dependencies
+
+This project is designed to work with **zero external Python packages**:
+
+| Component | Dependencies |
+|-----------|--------------|
+| Orchestrator | OpenClaw only |
+| Module Agents | OpenClaw only |
+| Knowledge Scraper | Python 3.8+ stdlib only |
+| Spaced Repetition | Python 3.8+ stdlib only |
+| Artifact Generator | Python 3.8+ stdlib only |
+
+All Python scripts use built-in modules: `os`, `json`, `hashlib`, `re`, `datetime`, `pathlib`, `typing`, `argparse`.
+
+### Running the Knowledge Scraper
+
+**Windows:**
+```powershell
+# Update OpenClaw docs in knowledge base
+cd knowledge
+py scraper.py
+
+# Check scraper status
+py scraper.py --status
+```
+
+**macOS/Linux:**
+```bash
+# Update OpenClaw docs in knowledge base
+cd knowledge
+python3 scraper.py
+
+# Check scraper status
+python3 scraper.py --status
+```
+
+The scraper reads from your local OpenClaw installation (at `C:\Users\Brendan\OneDrive\Downloads\ClawLauncher-Windows\myclaw\node_modules\openclaw\docs` on Windows) and outputs to `knowledge/openclaw_docs.json`.
+
+**Note:** On first run, the scraper will process all 22 documentation files. Subsequent runs only process changed files.
 
 ---
 

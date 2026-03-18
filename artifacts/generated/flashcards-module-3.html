@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flashcards - Deep Dive into OpenClaw</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .card { perspective: 1000px; }
+    .card-inner { transition: transform 0.6s; transform-style: preserve-3d; }
+    .card.flipped .card-inner { transform: rotateY(180deg); }
+    .card-front, .card-back { backface-visibility: hidden; }
+    .card-back { transform: rotateY(180deg); }
+  </style>
+</head>
+<body class="bg-slate-900 min-h-screen text-white p-8">
+  <div class="max-w-2xl mx-auto">
+    <h1 class="text-3xl font-bold mb-2 text-center">🧠 Deep Dive into OpenClaw</h1>
+    <p class="text-slate-400 text-center mb-8">Click cards to flip • Review daily for spaced repetition!</p>
+    
+    
+    <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner relative w-full h-full">
+        <div class="card-front absolute w-full h-full bg-indigo-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-xl text-center font-bold">OpenClaw Gateway</p>
+        </div>
+        <div class="card-back absolute w-full h-full bg-green-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-sm text-center">Central hub that connects agents to channels and tools.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner relative w-full h-full">
+        <div class="card-front absolute w-full h-full bg-indigo-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-xl text-center font-bold">Skill</p>
+        </div>
+        <div class="card-back absolute w-full h-full bg-green-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-sm text-center">Pre-built capability package that extends agent functionality.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner relative w-full h-full">
+        <div class="card-front absolute w-full h-full bg-indigo-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-xl text-center font-bold">Agent</p>
+        </div>
+        <div class="card-back absolute w-full h-full bg-green-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-sm text-center">AI entity with defined role, tools, and behaviors using OpenClaw structure.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner relative w-full h-full">
+        <div class="card-front absolute w-full h-full bg-indigo-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-xl text-center font-bold">Memory System</p>
+        </div>
+        <div class="card-back absolute w-full h-full bg-green-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-sm text-center">4-layer system: Working, Short-term, Long-term, Semantic.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner relative w-full h-full">
+        <div class="card-front absolute w-full h-full bg-indigo-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-xl text-center font-bold">Channel</p>
+        </div>
+        <div class="card-back absolute w-full h-full bg-green-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-sm text-center">Communication platform (Telegram, Discord, WhatsApp) where agents interact.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner relative w-full h-full">
+        <div class="card-front absolute w-full h-full bg-indigo-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-xl text-center font-bold">Jentic</p>
+        </div>
+        <div class="card-back absolute w-full h-full bg-green-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-sm text-center">Security framework for managing credentials without exposing them to agents.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner relative w-full h-full">
+        <div class="card-front absolute w-full h-full bg-indigo-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-xl text-center font-bold">Cron Jobs</p>
+        </div>
+        <div class="card-back absolute w-full h-full bg-green-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-sm text-center">Scheduled tasks that run automatically at set times.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner relative w-full h-full">
+        <div class="card-front absolute w-full h-full bg-indigo-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-xl text-center font-bold">Model Routing</p>
+        </div>
+        <div class="card-back absolute w-full h-full bg-green-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-sm text-center">Sending requests to different AI models based on task complexity.</p>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="mt-8 text-center">
+      <a href="progress.html?student=student-001&module=module-3" class="text-indigo-400 hover:underline">View Progress →</a>
+    </div>
+  </div>
+</body>
+</html>
