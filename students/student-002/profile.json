@@ -1,0 +1,57 @@
+{
+  "studentId": "student-002",
+  "createdAt": "2026-03-19T11:42:00Z",
+  "updatedAt": "2026-03-19T11:42:00Z",
+  "discovery": {
+    "currentRole": "entrepreneur",
+    "targetRole": "agent-developer",
+    "businessContext": {
+      "hasBusiness": true,
+      "businessType": "ai-agency",
+      "businessNames": ["AI Champion", "Lead with AI", "AI Orchestrator"],
+      "businessGoals": [
+        "automate-operations",
+        "offer-ai-services-to-smes",
+        "build-6k-month-revenue",
+        "travel-penang-malaysia"
+      ]
+    },
+    "personalContext": {
+      "isPersonal": false,
+      "forFamily": false,
+      "forDevelopment": true
+    },
+    "learningStyle": "hands-on",
+    "timeAvailable": "30min",
+    "priorKnowledge": "developer"
+  },
+  "progress": {
+    "curriculum": {
+      "generatedAt": "2026-03-19T11:42:00Z",
+      "moduleOrder": [
+        "module-1-agentic-revolution",
+        "module-2-tech-stack",
+        "module-2-ai-literacy",
+        "module-3-building-agents",
+        "module-3-openclaw",
+        "module-4-real-world-projects",
+        "module-4-strategy-ethics",
+        "module-5-advanced-topics",
+        "module-5-knowledge-check"
+      ],
+      "customizations": {
+        "examples": ["sme-automation", "marketing-agency", "coaching-business"],
+        "delivery": "exercises-first",
+        "pace": "accelerated"
+      }
+    },
+    "modules": {},
+    "assessments": [],
+    "projects": []
+  },
+  "settings": {
+    "notificationsEnabled": true,
+    "reminderTime": "09:00",
+    "difficulty": "accelerated"
+  }
+}
