@@ -819,7 +819,146 @@ understand how you obtained that information before proceeding."
 
 # HANDS-ON EXERCISES
 
-## Exercise 1: Design a Multi-Agent Workflow (10 minutes)
+## Exercise 1: Build Your Personal AI Thought Partner (15 minutes)
+
+**Objective:** Create an AI agent that serves as your personal thought partner and coach.
+
+**What You'll Build:**
+A customized AI agent that can:
+- Challenge your assumptions
+- Ask probing questions
+- Help you think through decisions
+- Provide different perspectives using thinking frameworks
+- Act as a sounding board for ideas
+
+**The Agent Files:**
+
+```yaml
+# AGENTS.md — My Thought Partner
+
+## Role
+You are my personal thought partner and executive coach. You help me think more clearly, challenge my assumptions, and make better decisions.
+
+## Thinking Frameworks
+- Six Thinking Hats (Edward de Bono)
+- First Principles Thinking
+- Inversion (Charlie Munger)
+- OODA Loop (John Boyd)
+- Stoic Philosophy
+
+## Guidelines
+- Ask questions before giving answers
+- Challenge my assumptions gently but directly
+- Use relevant frameworks when appropriate
+- Play devil's advocate when needed
+- Summarise my thinking to confirm understanding
+
+## Goals
+1. Help me think more clearly
+2. Surface blind spots
+3. Challenge groupthink
+4. Support better decision-making
+```
+
+```markdown
+# SOUL.md — Thought Partner Personality
+
+## Voice
+- Socratic (asks questions)
+- Supportive but honest
+- Uses frameworks when helpful
+- Challenges with kindness
+
+## Traits
+- Curious
+- Patient
+- Analytical
+- Encouraging
+```
+
+**Deliverable:**
+- Complete AGENTS.md for your thought partner
+- SOUL.md with personality
+- TOOLS.md with any special tools (web_search for research, memory for context)
+
+**Reflection:**
+- What makes this different from a regular chatbot?
+- How will you use it differently from other agents?
+
+---
+
+## Exercise 2: Build Your AI Portfolio (20 minutes)
+
+**Objective:** Create a portfolio showcasing your AI skills and work.
+
+**What You'll Build:**
+A comprehensive portfolio that demonstrates:
+- Your AI knowledge and certifications
+- Projects you've built or contributed to
+- Skills and competencies
+- Use cases you've solved
+- Future aspirations
+
+**Portfolio Structure:**
+
+```yaml
+# AGENTS.md — My AI Portfolio
+
+## Role
+Present my AI skills, projects, and capabilities to potential clients, employers, or partners.
+
+## About Me
+[Your background, experience, and journey with AI]
+
+## AI Competencies
+- Prompt Engineering
+- Agent Design
+- Workflow Automation
+- Integration Development
+- [Your specific skills]
+
+## Projects
+
+### Project 1: [Name]
+- Description: [What it does]
+- Technologies: [OpenClaw, Python, APIs used]
+- Results: [Impact/outcomes]
+- Link: [URL if applicable]
+
+### Project 2: [Name]
+[Continue with more projects...]
+
+## Use Cases Solved
+| Industry | Challenge | AI Solution | Outcome |
+|----------|-----------|-------------|---------|
+| [Your case] | [Problem] | [Approach] | [Result] |
+
+## Certifications & Learning
+- [AI Orchestrator Upskill - Module X]
+- [Other certifications]
+
+## Testimonials
+> "[Quote from colleague, client, or peer]"
+
+## Contact
+- Email: [Your email]
+- LinkedIn: [Your profile]
+- Website: [Your site]
+```
+
+**Deliverable:**
+- A complete AGENTS.md portfolio
+- At least 3 projects documented
+- At least 2 use cases
+
+**Extension Ideas:**
+- Add multi-media elements (generated images, videos)
+- Create versions for different audiences (employers vs clients)
+- Add a "Latest AI Insights" section
+
+---
+
+## Exercise 4: Design a Multi-Agent Workflow (10 minutes)
 
 **Objective:** Create a multi-agent system for automated research and reporting.
 
@@ -850,7 +989,7 @@ workflow:
 
 ---
 
-## Exercise 2: Implement Security Guardrails (10 minutes)
+## Exercise 5: Implement Security Guardrails (10 minutes)
 
 **Objective:** Add security configurations to an existing agent.
 
@@ -882,7 +1021,7 @@ workflow:
 
 ---
 
-## Exercise 3: Ethics Case Study Analysis (10 minutes)
+## Exercise 6: Ethics Case Study Analysis (10 minutes)
 
 **Objective:** Apply ethical reasoning to real-world scenarios.
 
@@ -908,7 +1047,7 @@ Write a 1-page ethical guideline document for deploying this system.
 
 ---
 
-## Exercise 4: Future Capability Planning (10 minutes)
+## Exercise 7: Future Capability Planning (10 minutes)
 
 **Objective:** Plan how to integrate emerging capabilities.
 

@@ -32,6 +32,45 @@ Start a session with the **Orchestrator** agent to begin personalized learning.
 
 ---
 
+## What's Included (March 2026 Update)
+
+### Visual Learning Aids
+Each module includes **hand-drawn sketchnote images** in a whiteboard aesthetic with AI Orchestrator branding (Deep Pink #E67E9F, Charcoal #131313, Steel Blue-Grey #738DA0):
+
+| Module | Images | Content |
+|--------|--------|---------|
+| 1 - Agentic Revolution | 6 | Overview, Multi-Agent Systems, 5 Core Capabilities |
+| 2 - AI Literacy | 9 | Overview, Context Windows, RAG, Prompt Engineering |
+| 3 - OpenClaw | 7 | Overview, Skills Anatomy, Memory Layers |
+| 4 - Strategy & Ethics | 6 | Overview, ROI Framework, Ethics Framework |
+| 5 - Advanced Topics | 4 | Overview, Multi-Agent Workflows |
+
+### Audio Introductions
+Each module includes an **audio overview** (MP3) that learners can listen to before starting:
+- 45-60 second summary of module content
+- Key learning objectives
+- Professional voice using MiniMax TTS
+
+### Interactive "Build an Artifact" Prompts
+Throughout each module, learners are invited to **build practical artifacts**:
+
+- **Module 1:** Agent Capability Mapper, Your First Agent Concept
+- **Module 2:** Prompt Library, AI Tool Stack Assessment
+- **Module 3:** Custom Skill Design, Your OpenClaw Agent
+- **Module 4:** ROI Calculator, AI Implementation Roadmap
+- **Module 5:** Multi-Agent Workflow, Complete AI Orchestration System
+
+### Hands-On Exercises (Module 5)
+New practical build exercises:
+1. **Build Your Personal AI Thought Partner** - Create an AI thought partner and coach
+2. **Build Your AI Portfolio** - Showcase your AI skills and work
+3. Design Multi-Agent Workflows
+4. Implement Security Guardrails
+5. Ethics Case Study Analysis
+6. Future Capability Planning
+
+---
+
 ## The Architecture
 
 ```
