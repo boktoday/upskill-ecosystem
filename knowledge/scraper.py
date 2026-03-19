@@ -160,7 +160,7 @@ class OpenClawDocScraper:
             if doc:
                 self.knowledge_base.append(doc)
                 files_changed += 1
-                print(f"  ✓ Updated: {doc['filepath']}")
+                print(f"  [OK] Updated: {doc['filepath']}")
         
         # Save results
         result = {
