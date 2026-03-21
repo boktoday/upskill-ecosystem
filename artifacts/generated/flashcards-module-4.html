@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,81 +13,75 @@
     .card-back { transform: rotateY(180deg); }
   </style>
 </head>
-<body class="bg-slate-900 min-h-screen text-white p-8">
+<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900 min-h-screen text-white p-8">
   <div class="max-w-2xl mx-auto">
-    <h1 class="text-3xl font-bold mb-2 text-center">🧠 Strategy, Ethics, Application</h1>
-    <p class="text-slate-400 text-center mb-8">Click cards to flip • Review daily for spaced repetition!</p>
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold mb-2">🧠 Strategy, Ethics, Application</h1>
+      <p class="text-slate-400">30 min • Click cards to flip</p>
+    </div>
     
-    
     <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
       <div class="card-inner relative w-full h-full">
-        <div class="card-front absolute w-full h-full bg-indigo-600 rounded-xl p-6 flex items-center justify-center">
-          <p class="text-xl text-center font-bold">AI Ethics</p>
+        <div class="card-front absolute w-full h-full bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl p-6 flex items-center justify-center shadow-lg">
+          <p class="text-2xl font-bold text-center">AI Ethics</p>
         </div>
-        <div class="card-back absolute w-full h-full bg-green-600 rounded-xl p-6 flex items-center justify-center">
-          <p class="text-sm text-center">Moral principles for AI development and use: fairness, transparency, privacy, safety.</p>
+        <div class="card-back absolute w-full h-full bg-gradient-to-br from-green-600 to-teal-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-lg text-center">Moral principles: fairness, transparency, privacy, safety.</p>
         </div>
       </div>
     </div>
-
     <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
       <div class="card-inner relative w-full h-full">
-        <div class="card-front absolute w-full h-full bg-indigo-600 rounded-xl p-6 flex items-center justify-center">
-          <p class="text-xl text-center font-bold">Hallucination</p>
+        <div class="card-front absolute w-full h-full bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl p-6 flex items-center justify-center shadow-lg">
+          <p class="text-2xl font-bold text-center">Hallucination</p>
         </div>
-        <div class="card-back absolute w-full h-full bg-green-600 rounded-xl p-6 flex items-center justify-center">
-          <p class="text-sm text-center">When AI generates false or nonsensical information presented as fact.</p>
+        <div class="card-back absolute w-full h-full bg-gradient-to-br from-green-600 to-teal-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-lg text-center">AI generating false information presented as fact.</p>
         </div>
       </div>
     </div>
-
     <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
       <div class="card-inner relative w-full h-full">
-        <div class="card-front absolute w-full h-full bg-indigo-600 rounded-xl p-6 flex items-center justify-center">
-          <p class="text-xl text-center font-bold">Prompt Injection</p>
+        <div class="card-front absolute w-full h-full bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl p-6 flex items-center justify-center shadow-lg">
+          <p class="text-2xl font-bold text-center">Prompt Injection</p>
         </div>
-        <div class="card-back absolute w-full h-full bg-green-600 rounded-xl p-6 flex items-center justify-center">
-          <p class="text-sm text-center">Malicious input designed to make AI ignore instructions or leak information.</p>
+        <div class="card-back absolute w-full h-full bg-gradient-to-br from-green-600 to-teal-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-lg text-center">Malicious input to make AI ignore instructions.</p>
         </div>
       </div>
     </div>
-
     <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
       <div class="card-inner relative w-full h-full">
-        <div class="card-front absolute w-full h-full bg-indigo-600 rounded-xl p-6 flex items-center justify-center">
-          <p class="text-xl text-center font-bold">Data Privacy</p>
+        <div class="card-front absolute w-full h-full bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl p-6 flex items-center justify-center shadow-lg">
+          <p class="text-2xl font-bold text-center">Data Privacy</p>
         </div>
-        <div class="card-back absolute w-full h-full bg-green-600 rounded-xl p-6 flex items-center justify-center">
-          <p class="text-sm text-center">Protecting user data when using AI. GDPR, consent, minimal data collection.</p>
+        <div class="card-back absolute w-full h-full bg-gradient-to-br from-green-600 to-teal-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-lg text-center">Protecting user data. GDPR, consent, minimal collection.</p>
         </div>
       </div>
     </div>
-
     <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
       <div class="card-inner relative w-full h-full">
-        <div class="card-front absolute w-full h-full bg-indigo-600 rounded-xl p-6 flex items-center justify-center">
-          <p class="text-xl text-center font-bold">Human Oversight</p>
+        <div class="card-front absolute w-full h-full bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl p-6 flex items-center justify-center shadow-lg">
+          <p class="text-2xl font-bold text-center">Human Oversight</p>
         </div>
-        <div class="card-back absolute w-full h-full bg-green-600 rounded-xl p-6 flex items-center justify-center">
-          <p class="text-sm text-center">Keeping humans in the loop for important decisions AI makes.</p>
+        <div class="card-back absolute w-full h-full bg-gradient-to-br from-green-600 to-teal-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-lg text-center">Keeping humans in the loop for important decisions.</p>
         </div>
       </div>
     </div>
-
     <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
       <div class="card-inner relative w-full h-full">
-        <div class="card-front absolute w-full h-full bg-indigo-600 rounded-xl p-6 flex items-center justify-center">
-          <p class="text-xl text-center font-bold">Practical Use Cases</p>
+        <div class="card-front absolute w-full h-full bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl p-6 flex items-center justify-center shadow-lg">
+          <p class="text-2xl font-bold text-center">Practical Use Cases</p>
         </div>
-        <div class="card-back absolute w-full h-full bg-green-600 rounded-xl p-6 flex items-center justify-center">
-          <p class="text-sm text-center">Real applications: customer service, content creation, data analysis, automation.</p>
+        <div class="card-back absolute w-full h-full bg-gradient-to-br from-green-600 to-teal-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-lg text-center">Real applications: customer service, content, data.</p>
         </div>
       </div>
     </div>
-
-    
-    <div class="mt-8 text-center">
-      <a href="progress.html?student=student-001&module=module-4" class="text-indigo-400 hover:underline">View Progress →</a>
+    <div class="text-center mt-8">
+      <a href="progress.html" class="px-6 py-3 bg-slate-700 rounded-lg hover:bg-slate-600">📊 Progress</a>
     </div>
   </div>
 </body>

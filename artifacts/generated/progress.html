@@ -1,43 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Progress</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-900 min-h-screen text-white p-8">
-  <div class="max-w-2xl mx-auto">
-    <h1 class="text-3xl font-bold mb-8 text-center">📊 Your Learning Progress</h1>
-    
-    <!-- Overall Progress -->
-    <div class="mb-8">
-      <div class="flex justify-between mb-2">
-        <span>Overall Progress</span>
-        <span>20%</span>
-      </div>
-      <div class="w-full bg-slate-700 rounded-full h-4">
-        <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-4 rounded-full" style="width: 20%"></div>
-      </div>
+<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900 min-h-screen text-white p-8">
+  <div class="max-w-3xl mx-auto">
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold mb-2">📊 Your Learning Progress</h1>
+      <p class="text-slate-400">Track your AI Upskill journey</p>
     </div>
     
-    <!-- Module Progress -->
+    <div class="bg-slate-800 rounded-2xl p-6 mb-8 border border-slate-700 text-center">
+      <p class="text-slate-400 mb-2">Overall Progress</p>
+      <p class="text-5xl font-bold text-indigo-400">0%</p>
+      <p class="text-slate-400 mt-2">0 of 5 modules completed</p>
+    </div>
+    
     <h2 class="text-xl font-bold mb-4">Modules</h2>
     
-        <div class="flex items-center justify-between p-3 bg-slate-800 rounded mb-2">
-          <span>✅ module-1</span>
-          <span class="text-yellow-400">87%</span>
+        <div class="p-5 bg-slate-800 rounded-xl border border-slate-700 mb-4">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center">
+              <span class="text-2xl mr-3">📚</span>
+              <div>
+                <h3 class="font-bold text-lg">The Agentic Revolution</h3>
+                <p class="text-sm text-slate-400">45 min</p>
+              </div>
+            </div>
+            <span class="text-xl font-bold text-yellow-400">0%</span>
+          </div>
+          <div class="w-full bg-slate-700 rounded-full h-3 mb-3">
+            <div class="bg-gradient-to-r from-slate-600 to-slate-700 h-3 rounded-full" style="width: 0%"></div>
+          </div>
+          <div class="flex gap-2">
+            <a href="flashcards-module-1.html" class="flex-1 text-center py-2 bg-indigo-600/30 hover:bg-indigo-600/50 rounded-lg text-sm font-medium transition-colors">🧠 Flashcards</a>
+            <a href="quiz-module-1.html" class="flex-1 text-center py-2 bg-green-600/30 hover:bg-green-600/50 rounded-lg text-sm font-medium transition-colors">📝 Quiz</a>
+          </div>
         </div>
-
+        <div class="p-5 bg-slate-800 rounded-xl border border-slate-700 mb-4">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center">
+              <span class="text-2xl mr-3">📚</span>
+              <div>
+                <h3 class="font-bold text-lg">The Tech Stack of 2026</h3>
+                <p class="text-sm text-slate-400">45 min</p>
+              </div>
+            </div>
+            <span class="text-xl font-bold text-yellow-400">0%</span>
+          </div>
+          <div class="w-full bg-slate-700 rounded-full h-3 mb-3">
+            <div class="bg-gradient-to-r from-slate-600 to-slate-700 h-3 rounded-full" style="width: 0%"></div>
+          </div>
+          <div class="flex gap-2">
+            <a href="flashcards-module-2.html" class="flex-1 text-center py-2 bg-indigo-600/30 hover:bg-indigo-600/50 rounded-lg text-sm font-medium transition-colors">🧠 Flashcards</a>
+            <a href="quiz-module-2.html" class="flex-1 text-center py-2 bg-green-600/30 hover:bg-green-600/50 rounded-lg text-sm font-medium transition-colors">📝 Quiz</a>
+          </div>
+        </div>
+        <div class="p-5 bg-slate-800 rounded-xl border border-slate-700 mb-4">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center">
+              <span class="text-2xl mr-3">📚</span>
+              <div>
+                <h3 class="font-bold text-lg">Deep Dive into OpenClaw</h3>
+                <p class="text-sm text-slate-400">60 min</p>
+              </div>
+            </div>
+            <span class="text-xl font-bold text-yellow-400">0%</span>
+          </div>
+          <div class="w-full bg-slate-700 rounded-full h-3 mb-3">
+            <div class="bg-gradient-to-r from-slate-600 to-slate-700 h-3 rounded-full" style="width: 0%"></div>
+          </div>
+          <div class="flex gap-2">
+            <a href="flashcards-module-3.html" class="flex-1 text-center py-2 bg-indigo-600/30 hover:bg-indigo-600/50 rounded-lg text-sm font-medium transition-colors">🧠 Flashcards</a>
+            <a href="quiz-module-3.html" class="flex-1 text-center py-2 bg-green-600/30 hover:bg-green-600/50 rounded-lg text-sm font-medium transition-colors">📝 Quiz</a>
+          </div>
+        </div>
+        <div class="p-5 bg-slate-800 rounded-xl border border-slate-700 mb-4">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center">
+              <span class="text-2xl mr-3">📚</span>
+              <div>
+                <h3 class="font-bold text-lg">Strategy, Ethics, Application</h3>
+                <p class="text-sm text-slate-400">30 min</p>
+              </div>
+            </div>
+            <span class="text-xl font-bold text-yellow-400">0%</span>
+          </div>
+          <div class="w-full bg-slate-700 rounded-full h-3 mb-3">
+            <div class="bg-gradient-to-r from-slate-600 to-slate-700 h-3 rounded-full" style="width: 0%"></div>
+          </div>
+          <div class="flex gap-2">
+            <a href="flashcards-module-4.html" class="flex-1 text-center py-2 bg-indigo-600/30 hover:bg-indigo-600/50 rounded-lg text-sm font-medium transition-colors">🧠 Flashcards</a>
+            <a href="quiz-module-4.html" class="flex-1 text-center py-2 bg-green-600/30 hover:bg-green-600/50 rounded-lg text-sm font-medium transition-colors">📝 Quiz</a>
+          </div>
+        </div>
+        <div class="p-5 bg-slate-800 rounded-xl border border-slate-700 mb-4">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center">
+              <span class="text-2xl mr-3">📚</span>
+              <div>
+                <h3 class="font-bold text-lg">Knowledge Check & Practice</h3>
+                <p class="text-sm text-slate-400">Variable</p>
+              </div>
+            </div>
+            <span class="text-xl font-bold text-yellow-400">0%</span>
+          </div>
+          <div class="w-full bg-slate-700 rounded-full h-3 mb-3">
+            <div class="bg-gradient-to-r from-slate-600 to-slate-700 h-3 rounded-full" style="width: 0%"></div>
+          </div>
+          <div class="flex gap-2">
+            <a href="flashcards-module-5.html" class="flex-1 text-center py-2 bg-indigo-600/30 hover:bg-indigo-600/50 rounded-lg text-sm font-medium transition-colors">🧠 Flashcards</a>
+            <a href="quiz-module-5.html" class="flex-1 text-center py-2 bg-green-600/30 hover:bg-green-600/50 rounded-lg text-sm font-medium transition-colors">📝 Quiz</a>
+          </div>
+        </div>
     
-    <!-- Quick Actions -->
-    <div class="mt-8 grid grid-cols-2 gap-4">
-      <a href="flashcards.html?student=student-001" class="block text-center bg-indigo-600 hover:bg-indigo-700 py-3 rounded-lg">
-        🧠 Flashcards
-      </a>
-      <a href="quiz.html?student=student-001" class="block text-center bg-green-600 hover:bg-green-700 py-3 rounded-lg">
-        📝 Take Quiz
-      </a>
+    <div class="mt-8 p-5 bg-yellow-900/30 rounded-xl border border-yellow-600/50">
+      <h3 class="font-bold text-yellow-400 mb-2">🔔 Spaced Repetition Tip</h3>
+      <p class="text-slate-300 text-sm">Review flashcards at optimal intervals for best retention: <strong>Day 1 → Day 3 → Day 7 → Day 14</strong></p>
     </div>
   </div>
 </body>

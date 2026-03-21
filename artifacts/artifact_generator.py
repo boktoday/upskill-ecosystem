@@ -1,399 +1,209 @@
 #!/usr/bin/env python3
 """
-Artifact Generator
-==================
-Generates personalized learning materials (flashcards, quizzes, progress views)
-based on student progress and connects to the orchestrator workflow.
-
-Output: artifacts/generated/ directory with HTML files
+Artifact Generator V2
+====================
+Generates interactive learning materials for all 5 modules.
+Features:
+- Flashcards with flip animation
+- Interactive quizzes with instant feedback
+- Progress tracking
 """
 
 import json
-import os
-from datetime import datetime
+import random
 from pathlib import Path
-from typing import Optional
 
-# Configuration
-BASE_DIR = Path(__file__).parent.parent
-STUDENTS_DIR = BASE_DIR / "students"
-OUTPUT_DIR = BASE_DIR / "artifacts" / "generated"
-
-# Module content for generating flashcards
+# Module content
 MODULE_CONCEPTS = {
-    "module-1": {
-        "title": "The Agentic Revolution",
-        "concepts": [
-            {"id": "agent-framework", "term": "AI Agent Framework", "definition": "The scaffolding that allows an LLM to perform tasks beyond generating text — providing tools, memory, and action capabilities."},
-            {"id": "autonomous-execution", "term": "Autonomous Execution", "definition": "The ability to complete multi-step tasks without continuous human intervention."},
-            {"id": "tool-use", "term": "Tool Use", "definition": "Calling external functions, APIs, and services to interact with the real world."},
-            {"id": "memory-context", "term": "Memory & Context", "definition": "Maintaining state across interactions and learning from past experiences. Types: Working, Semantic, Episodic."},
-            {"id": "decision-making", "term": "Decision Making", "definition": "Evaluating options and choosing actions based on goals, constraints, and context."},
-            {"id": "action-chaining", "term": "Action Chaining", "definition": "Breaking complex tasks into sequences of smaller actions that achieve a larger goal."},
-            {"id": "chatbot-vs-agent", "term": "Chatbot vs Agent", "definition": "Chatbots are reactive (wait for prompt), agents are proactive (take initiative)."},
-            {"id": "agent-loop", "term": "The Agent Loop", "definition": "Think → Decide → Act → Observe → repeat until goal is complete."}
-        ]
-    },
-    "module-2": {
-        "title": "The Tech Stack of 2026",
-        "concepts": [
-            {"id": "llm", "term": "LLM (Large Language Model)", "definition": "AI model trained on vast text data, capable of understanding and generating human-like text."},
-            {"id": "api", "term": "API (Application Programming Interface)", "definition": "A set of rules allowing software applications to communicate. You ask, it answers."},
-            {"id": "webhook", "term": "Webhook", "definition": "HTTP callback that notifies you when something happens. Like a doorbell - alerts you to events."},
-            {"id": "function-calling", "term": "Function Calling", "definition": "Ability for AI to call custom functions/APIs during generation to perform actions."},
-            {"id": "prompt-engineering", "term": "Prompt Engineering", "definition": "The practice of designing effective inputs to get desired outputs from LLMs."},
-            {"id": "context-window", "term": "Context Window", "definition": "The amount of text an LLM can consider at once when generating responses."},
-            {"id": "temperature", "term": "Temperature", "definition": "Controls randomness in LLM output. Low = focused/deterministic, High = creative/varied."},
-            {"id": "token", "term": "Token", "definition": "Basic unit of text a model reads/writes. ~4 characters = 1 token."}
-        ]
-    },
-    "module-3": {
-        "title": "Deep Dive into OpenClaw",
-        "concepts": [
-            {"id": "gateway", "term": "OpenClaw Gateway", "definition": "Central hub that connects agents to channels and tools."},
-            {"id": "skill", "term": "Skill", "definition": "Pre-built capability package that extends agent functionality."},
-            {"id": "agent", "term": "Agent", "definition": "AI entity with defined role, tools, and behaviors using OpenClaw structure."},
-            {"id": "memory", "term": "Memory System", "definition": "4-layer system: Working, Short-term, Long-term, Semantic."},
-            {"id": "channel", "term": "Channel", "definition": "Communication platform (Telegram, Discord, WhatsApp) where agents interact."},
-            {"id": "jentic", "term": "Jentic", "definition": "Security framework for managing credentials without exposing them to agents."},
-            {"id": "cron", "term": "Cron Jobs", "definition": "Scheduled tasks that run automatically at set times."},
-            {"id": "model-routing", "term": "Model Routing", "definition": "Sending requests to different AI models based on task complexity."}
-        ]
-    },
-    "module-4": {
-        "title": "Strategy, Ethics, Application",
-        "concepts": [
-            {"id": "ai-ethics", "term": "AI Ethics", "definition": "Moral principles for AI development and use: fairness, transparency, privacy, safety."},
-            {"id": "hallucination", "term": "Hallucination", "definition": "When AI generates false or nonsensical information presented as fact."},
-            {"id": "prompt-injection", "term": "Prompt Injection", "definition": "Malicious input designed to make AI ignore instructions or leak information."},
-            {"id": "data-privacy", "term": "Data Privacy", "definition": "Protecting user data when using AI. GDPR, consent, minimal data collection."},
-            {"id": "human-oversight", "term": "Human Oversight", "definition": "Keeping humans in the loop for important decisions AI makes."},
-            {"id": "use-cases", "term": "Practical Use Cases", "definition": "Real applications: customer service, content creation, data analysis, automation."}
-        ]
-    }
+    "module-1": {"title": "The Agentic Revolution", "duration": "45 min", "concepts": [
+        {"term": "AI Agent Framework", "definition": "The scaffolding that allows an LLM to perform tasks beyond generating text."},
+        {"term": "Autonomous Execution", "definition": "Ability to complete multi-step tasks without continuous human intervention."},
+        {"term": "Tool Use", "definition": "Calling external functions, APIs, and services to interact with the real world."},
+        {"term": "Memory & Context", "definition": "Maintaining state across interactions. Types: Working, Semantic, Episodic."},
+        {"term": "Decision Making", "definition": "Evaluating options and choosing actions based on goals and context."},
+        {"term": "Action Chaining", "definition": "Breaking complex tasks into sequences of smaller actions."},
+        {"term": "Chatbot vs Agent", "definition": "Chatbots are reactive, agents are proactive."},
+        {"term": "The Agent Loop", "definition": "Think → Decide → Act → Observe → repeat until goal is complete."}
+    ]},
+    "module-2": {"title": "The Tech Stack of 2026", "duration": "45 min", "concepts": [
+        {"term": "LLM", "definition": "Large Language Model - AI trained on vast text data."},
+        {"term": "API", "definition": "You ask, it answers. Pull-based communication."},
+        {"term": "Webhook", "definition": "It notifies you when something happens. Push-based."},
+        {"term": "Function Calling", "definition": "AI calling custom functions/APIs during generation."},
+        {"term": "Prompt Engineering", "definition": "Designing effective inputs to get desired outputs."},
+        {"term": "Context Window", "definition": "Amount of text an LLM can consider at once."},
+        {"term": "Temperature", "definition": "Controls randomness. Low = focused, High = creative."},
+        {"term": "Token", "definition": "Basic unit of text. ~4 characters = 1 token."}
+    ]},
+    "module-3": {"title": "Deep Dive into OpenClaw", "duration": "60 min", "concepts": [
+        {"term": "Gateway", "definition": "Central hub connecting agents to channels and tools."},
+        {"term": "Skill", "definition": "Pre-built capability package extending agent functionality."},
+        {"term": "Agent", "definition": "AI entity with defined role, tools, and behaviors."},
+        {"term": "Memory System", "definition": "4-layer system: Working, Short-term, Long-term, Semantic."},
+        {"term": "Channel", "definition": "Platform (Telegram, Discord, WhatsApp) where agents interact."},
+        {"term": "Jentic", "definition": "Security framework for managing credentials."},
+        {"term": "Cron Jobs", "definition": "Scheduled tasks running automatically at set times."},
+        {"term": "Model Routing", "definition": "Sending requests to different AI models."}
+    ]},
+    "module-4": {"title": "Strategy, Ethics, Application", "duration": "30 min", "concepts": [
+        {"term": "AI Ethics", "definition": "Moral principles: fairness, transparency, privacy, safety."},
+        {"term": "Hallucination", "definition": "AI generating false information presented as fact."},
+        {"term": "Prompt Injection", "definition": "Malicious input to make AI ignore instructions."},
+        {"term": "Data Privacy", "definition": "Protecting user data. GDPR, consent, minimal collection."},
+        {"term": "Human Oversight", "definition": "Keeping humans in the loop for important decisions."},
+        {"term": "Practical Use Cases", "definition": "Real applications: customer service, content, data."}
+    ]},
+    "module-5": {"title": "Knowledge Check & Practice", "duration": "Variable", "concepts": [
+        {"term": "Mastery Quiz", "definition": "Assessment covering all modules."},
+        {"term": "Hands-On Exercises", "definition": "Practical tasks: creating prompts, mapping workflows."},
+        {"term": "SKILL.md Creation", "definition": "Creating skill definition files for OpenClaw."},
+        {"term": "Action Chain Mapping", "definition": "Designing AI agent task sequences."},
+        {"term": "Integration Design", "definition": "Planning AI connections to tools/workflows."}
+    ]}
 }
 
+# Quiz questions
+QUIZ_QUESTIONS = {
+    "module-1": [
+        {"q": "What is the primary difference between a chatbot and an AI agent?", "o": ["Chatbots are smarter", "Agents are proactive, chatbots are reactive", "Agents can't use tools", "Chatbots have better memory"], "a": 1, "e": "Agents take initiative, chatbots only respond."},
+        {"q": "Which is NOT a core capability of AI agents?", "o": ["Autonomous Execution", "Tool Use", "Writing Novels", "Decision Making"], "a": 2, "e": "Core capabilities are: Execution, Tool Use, Memory, Decision, Action Chaining."},
+        {"q": "What is Action Chaining?", "o": ["Linking agents", "Breaking tasks into steps", "Connecting APIs", "Storing history"], "a": 1, "e": "Breaking complex goals into logical action sequences."},
+        {"q": "What is the Agent Loop?", "o": ["A programming language", "Think → Decide → Act → Observe → repeat", "A type of chatbot", "A security protocol"], "a": 1, "e": "Continuous cycle until goal completion."},
+        {"q": "What stores facts and general knowledge?", "o": ["Working Memory", "Episodic Memory", "Semantic Memory", "Procedural Memory"], "a": 2, "e": "Semantic Memory stores facts and world knowledge."}
+    ],
+    "module-2": [
+        {"q": "API vs Webhook?", "o": ["APIs are faster", "APIs pull, Webhooks push", "Webhooks are secure", "No difference"], "a": 1, "e": "APIs = pull (you ask), Webhooks = push (they notify)."},
+        {"q": "What is Temperature?", "o": ["Processing speed", "Server temperature", "Controls output randomness", "Model size"], "a": 2, "e": "Low = focused/deterministic, High = creative/varied."},
+        {"q": "What is a Token?", "o": ["API password", "Cryptographic key", "~4 chars = 1 token", "AI model type"], "a": 2, "e": "Basic text unit. ~4 characters ≈ 1 token."},
+        {"q": "What is Function Calling?", "o": ["Writing code", "Emergency calls", "AI calling APIs", "A chatbot type"], "a": 2, "e": "Ability for AI to invoke external tools/APIs."},
+        {"q": "What is Prompt Engineering?", "o": ["Building AI", "Designing effective inputs", "Writing code", "Creating chatbots"], "a": 1, "e": "Crafting inputs to get better outputs from LLMs."}
+    ],
+    "module-3": [
+        {"q": "Which file defines agent persona?", "o": ["SOUL.md", "AGENTS.md", "TOOLS.md", "USER.md"], "a": 0, "e": "SOUL.md defines identity, voice, and behaviors."},
+        {"q": "What are the 4 memory layers?", "o": ["Input, Process, Output, Store", "Working, Short, Long, Semantic", "Fast, Medium, Slow, Archive", "User, Agent, Tool, Channel"], "a": 1, "e": "Working, Short-term, Long-term, Semantic."},
+        {"q": "What does the Gateway do?", "o": ["Connects to internet", "Security, routing, cron", "Stores memories", "Creates agents"], "a": 1, "e": "Central hub handling security, sessions, and scheduling."},
+        {"q": "What is a Channel?", "o": ["TV channel", "YouTube video", "Communication platform", "Memory type"], "a": 2, "e": "Platforms like Telegram, Discord, WhatsApp."},
+        {"q": "What is Jentic?", "o": ["A chatbot", "A programming language", "Security for credentials", "An AI model"], "a": 2, "e": "Security framework managing credentials without exposure."}
+    ],
+    "module-4": [
+        {"q": "What is Hallucination?", "o": ["AI dreaming", "AI generating false info", "Error message", "Security feature"], "a": 1, "e": "Plausible-sounding but false/fabricated information."},
+        {"q": "What is Prompt Injection?", "o": ["Injecting code", "Malicious input to bypass instructions", "Improving prompts", "A chatbot"], "a": 1, "e": "Security threat trying to make AI ignore its instructions."},
+        {"q": "What is Human Oversight?", "o": ["AI watching humans", "Humans in the loop for important decisions", "Humans overseeing companies", "AI supervising humans"], "a": 1, "e": "Keeping humans involved in critical AI decisions."},
+        {"q": "Practical use cases include?", "o": ["Gaming, Entertainment", "Customer service, Content, Data analysis", "Cooking, Sports", "Fashion, Music"], "a": 1, "e": "Automating service, generating content, analyzing data."},
+        {"q": "Data Privacy is?", "o": ["Making data bigger", "Protecting user data", "Storing all conversations", "Sharing publicly"], "a": 1, "e": "Protection through consent, minimal collection, GDPR."}
+    ],
+    "module-5": [
+        {"q": "What goes in SKILL.md?", "o": ["Only the name", "Description, Templates, Resources, Steps", "Just code", "A list of users"], "a": 1, "e": "Include description, templates, resources, instructions."},
+        {"q": "When mapping Action Chains, start with?", "o": ["Code to write", "Final goal, work backwards", "AI model", "Budget"], "a": 1, "e": "Start with final goal, identify steps backwards."},
+        {"q": "How handle complex IEP documents?", "o": ["All at once", "Chunk into smaller steps", "Print it out", "Ignore it"], "a": 1, "e": "Break into smaller, actionable chunks."},
+        {"q": "Best hands-on exercise?", "o": ["Just reading", "Creating real workflows", "Memorizing", "Watching videos"], "a": 1, "e": "Build actual solutions that solve real problems."},
+        {"q": "Design AI integration by?", "o": ["Copying others", "Starting with the problem", "Most expensive tools", "Avoiding planning"], "a": 1, "e": "Understand the problem first, then design."}
+    ]
+}
 
-def get_student_progress(student_id: str) -> Optional[dict]:
-    """Load student progress data."""
-    profile_path = STUDENTS_DIR / student_id / "profile.json"
-    if profile_path.exists():
-        with open(profile_path) as f:
-            return json.load(f)
-    return None
+OUTPUT_DIR = Path(__file__).parent / "generated"
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-
-def generate_flashcards(student_id: str, module_id: str) -> str:
-    """Generate flashcard HTML for a specific module."""
-    if module_id not in MODULE_CONCEPTS:
-        return f"<p>Unknown module: {module_id}</p>"
-    
-    module = MODULE_CONCEPTS[module_id]
-    concepts = module["concepts"]
-    
-    cards_html = ""
-    for concept in concepts:
-        cards_html += f"""
+def gen_flashcards(module_id):
+    m = MODULE_CONCEPTS.get(module_id)
+    if not m: return "<p>Unknown module</p>"
+    cards = ""
+    for c in m["concepts"]:
+        cards += f'''
     <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
       <div class="card-inner relative w-full h-full">
-        <div class="card-front absolute w-full h-full bg-indigo-600 rounded-xl p-6 flex items-center justify-center">
-          <p class="text-xl text-center font-bold">{concept['term']}</p>
+        <div class="card-front absolute w-full h-full bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl p-6 flex items-center justify-center shadow-lg">
+          <p class="text-2xl font-bold text-center">{c["term"]}</p>
         </div>
-        <div class="card-back absolute w-full h-full bg-green-600 rounded-xl p-6 flex items-center justify-center">
-          <p class="text-sm text-center">{concept['definition']}</p>
-        </div>
-      </div>
-    </div>
-"""
-    
-    return f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flashcards - {module['title']}</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .card {{ perspective: 1000px; }}
-    .card-inner {{ transition: transform 0.6s; transform-style: preserve-3d; }}
-    .card.flipped .card-inner {{ transform: rotateY(180deg); }}
-    .card-front, .card-back {{ backface-visibility: hidden; }}
-    .card-back {{ transform: rotateY(180deg); }}
-  </style>
-</head>
-<body class="bg-slate-900 min-h-screen text-white p-8">
-  <div class="max-w-2xl mx-auto">
-    <h1 class="text-3xl font-bold mb-2 text-center">🧠 {module['title']}</h1>
-    <p class="text-slate-400 text-center mb-8">Click cards to flip • Review daily for spaced repetition!</p>
-    
-    {cards_html}
-    
-    <div class="mt-8 text-center">
-      <a href="progress.html?student={student_id}&module={module_id}" class="text-indigo-400 hover:underline">View Progress →</a>
-    </div>
-  </div>
-</body>
-</html>"""
-
-
-def generate_quiz(student_id: str, module_id: str) -> str:
-    """Generate interactive quiz HTML for a module."""
-    if module_id not in MODULE_CONCEPTS:
-        return f"<p>Unknown module: {module_id}</p>"
-    
-    module = MODULE_CONCEPTS[module_id]
-    concepts = module["concepts"]
-    
-    # Generate questions from concepts
-    questions_html = ""
-    for i, concept in enumerate(concepts[:5], 1):  # Limit to 5 questions
-        questions_html += f"""
-      <div class="question mb-6 p-4 bg-slate-800 rounded-lg" data-correct="{i}">
-        <p class="font-bold mb-3">{i}. What is {concept['term']}?</p>
-        <div class="options space-y-2">
-          <label class="flex items-center p-2 rounded hover:bg-slate-700 cursor-pointer">
-            <input type="radio" name="q{i}" value="wrong" class="mr-2">
-            <span>A completely different concept</span>
-          </label>
-          <label class="flex items-center p-2 rounded hover:bg-slate-700 cursor-pointer">
-            <input type="radio" name="q{i}" value="correct" class="mr-2">
-            <span>{concept['definition'][:100]}...</span>
-          </label>
-          <label class="flex items-center p-2 rounded hover:bg-slate-700 cursor-pointer">
-            <input type="radio" name="q{i}" value="wrong2" class="mr-2">
-            <span>Another alternative definition</span>
-          </label>
+        <div class="card-back absolute w-full h-full bg-gradient-to-br from-green-600 to-teal-600 rounded-xl p-6 flex items-center justify-center">
+          <p class="text-lg text-center">{c["definition"]}</p>
         </div>
       </div>
-"""
-    
-    return f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz - {module['title']}</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-slate-900 min-h-screen text-white p-8">
-  <div class="max-w-2xl mx-auto">
-    <h1 class="text-3xl font-bold mb-2 text-center">📝 Quiz: {module['title']}</h1>
-    <p class="text-slate-400 text-center mb-8">Test your knowledge</p>
-    
-    <form id="quiz-form">
-      {questions_html}
-      
-      <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg">
-        Submit Answers
-      </button>
-    </form>
-    
-    <div id="result" class="hidden mt-6 p-4 rounded-lg text-center">
-    </div>
-  </div>
-  
-  <script>
-    document.getElementById('quiz-form').addEventListener('submit', function(e) {{
-      e.preventDefault();
-      
-      let score = 0;
-      const total = {len(concepts[:5])};
-      
-      for (let i = 1; i <= total; i++) {{
-        const selected = document.querySelector('input[name="q' + i + '"]:checked');
-        if (selected && selected.value === 'correct') {{
-          score++;
-        }}
-      }}
-      
-      const result = document.getElementById('result');
-      result.classList.remove('hidden', 'bg-red-600', 'bg-green-600');
-      
-      if (score >= total * 0.7) {{
-        result.classList.add('bg-green-600');
-        result.innerHTML = '<h3 class="text-2xl font-bold">🎉 Great job! Score: ' + score + '/' + total + '</h3>';
-      }} else {{
-        result.classList.add('bg-red-600');
-        result.innerHTML = '<h3 class="text-2xl font-bold">Keep practicing! Score: ' + score + '/' + total + '</h3>';
-      }}
-    }});
-  </script>
-</body>
-</html>"""
+    </div>'''
+    return f'''<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flashcards - {m["title"]}</title><script src="https://cdn.tailwindcss.com"></script>
+<style>.card{{perspective:1000px}}.card-inner{{transition:transform .6s;transform-style:preserve-3d}}.card.flipped .card-inner{{transform:rotateY(180deg)}}.card-front,.card-back{{backface-visibility:hidden}}.card-back{{transform:rotateY(180deg)}}</style>
+</head><body class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900 min-h-screen text-white p-8">
+<div class="max-w-2xl mx-auto text-center mb-8">
+<h1 class="text-4xl font-bold mb-2">🧠 {m["title"]}</h1>
+<p class="text-slate-400">{m["duration"]} • Click cards to flip</p></div>
+<div class="max-w-2xl mx-auto">{cards}</div>
+<div class="text-center mt-8"><a href="progress.html" class="px-6 py-3 bg-slate-700 rounded-lg">📊 Progress</a></div>
+</body></html>'''
 
+def gen_quiz(module_id):
+    qs = QUIZ_QUESTIONS.get(module_id)
+    m = MODULE_CONCEPTS.get(module_id, {"title": module_id})
+    if not qs: return "<p>No quiz available</p>"
+    
+    html = ""
+    for i, q in enumerate(qs, 1):
+        opts = ""
+        for j, o in enumerate(q["o"]):
+            opts += f'<label class="opt flex items-center p-3 rounded-lg border-2 border-slate-600 hover:border-indigo-400 cursor-pointer mb-2" data-a="{q["a"]}"><input type="radio" name="q{i}" value="{j}" class="hidden"><span class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center mr-3 font-bold">{chr(65+j)}</span>{o}</label>'
+        html += f'<div class="q mb-6 p-6 bg-slate-800 rounded-xl border border-slate-700"><p class="text-lg font-bold mb-4">Q{i}. {q["q"]}</p><div class="opts space-y-2">{opts}</div><div class="fb mt-4 p-4 rounded-lg hidden"><p class="fb-txt font-bold"></p><p class="exp mt-2 text-sm text-slate-300"></p></div></div>'
+    
+    return f'''<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz - {m["title"]}</title><script src="https://cdn.tailwindcss.com"></script>
+<style>.opt.correct{{border-color:#22c55e;background:rgba(34,197,94,.2)}}.opt.incorrect{{border-color:#ef4444;background:rgba(239,68,68,.2)}}.opt.selected{{border-color:#6366f1;background:rgba(99,102,241,.1)}}.fb.show{{display:block!important}}</style>
+</head><body class="bg-gradient-to-br from-slate-900 via-slate-800 to-green-900 min-h-screen text-white p-8">
+<div class="max-w-3xl mx-auto"><div class="text-center mb-8"><h1 class="text-4xl font-bold mb-2">📝 {m["title"]}</h1><p class="text-slate-400">Instant feedback on each answer!</p></div>
+<div class="fixed top-4 right-4 bg-slate-800 rounded-xl p-4 border border-slate-700"><p class="text-slate-400 text-sm">Score</p><p id="s" class="text-3xl font-bold text-green-400">0</p><p class="text-slate-400 text-sm">/ {len(qs)}</p></div>
+<form id="quiz">{html}<div class="text-center mt-8"><button type="submit" class="px-8 py-4 bg-gradient-to-r from-green-600 to-teal-600 rounded-xl font-bold text-lg shadow-lg">🎯 See Results</button></div></form>
+<div id="results" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"><div class="bg-slate-800 rounded-2xl p-8 max-w-md w-full text-center border border-slate-700"><div id="icon" class="text-6xl mb-4">🎉</div><h2 id="title" class="text-3xl font-bold mb-4">Great Job!</h2><p id="msg" class="text-slate-400 mb-6"></p><p id="score" class="text-5xl font-bold text-green-400 mb-6"></p><a href="progress.html" class="block py-3 bg-indigo-600 rounded-lg mb-2">📊 Progress</a><button onclick="document.getElementById('results').classList.add('hidden')" class="w-full py-3 bg-slate-700 rounded-lg">✕ Close</button></div></div>
+</div><script>
+let score=0;const qCount={len(qs)};
+document.querySelectorAll('.opt').forEach(o=>o.addEventListener('click',function(){{
+const p=this.closest('.q');const fb=p.querySelector('.fb');const correct=parseInt(this.dataset.a);const sel=parseInt(this.querySelector('input').value);
+p.querySelectorAll('.opt').forEach(x=>{{x.classList.remove('selected','correct','incorrect');x.querySelector('input').checked=false}});
+this.classList.add('selected');this.querySelector('input').checked=true;fb.classList.remove('hidden');
+if(sel===correct){{this.classList.add('correct');fb.querySelector('.fb-txt').textContent='✅ Correct!';fb.querySelector('.fb-txt').className='fb-txt font-bold text-green-400';fb.className='fb mt-4 p-4 rounded-lg bg-green-900/30 show';score++;document.getElementById('s').textContent=score}}
+else{{this.classList.add('incorrect');p.querySelectorAll('.opt')[correct].classList.add('correct');fb.querySelector('.fb-txt').textContent='❌ Incorrect';fb.querySelector('.fb-txt').className='fb-txt font-bold text-red-400';fb.querySelector('.exp').textContent='{chr(123)}0}.exp';fb.className='fb mt-4 p-4 rounded-lg bg-red-900/30 show'}}}}));
+document.getElementById('quiz').addEventListener('submit',function(e){{e.preventDefault();const pct=Math.round((score/qCount)*100);
+document.getElementById('score').textContent=score+'/'+qCount;
+if(pct>=80){{document.getElementById('icon').textContent='🏆';document.getElementById('title').textContent='Excellent!';document.getElementById('msg').textContent="You mastered this module!"}}
+else if(pct>=60){{document.getElementById('icon').textContent='👍';document.getElementById('title').textContent='Good Job!';document.getElementById('msg').textContent='Review flashcards to strengthen understanding.'}}
+else if(pct>=40){{document.getElementById('icon').textContent='📚';document.getElementById('title').textContent='Keep Learning!';document.getElementById('msg').textContent='Review material and try again.'}}
+else{{document.getElementById('icon').textContent='💪';document.getElementById('title').textContent="Don't Give Up!";document.getElementById('msg').textContent='Study flashcards first, then retry.'}}
+document.getElementById('results').classList.remove('hidden')}});
+</script></body></html>'''
 
-def generate_progress(student_id: str) -> str:
-    """Generate progress visualization HTML."""
-    progress = get_student_progress(student_id)
+def gen_progress():
+    cards = ""
+    for mid, m in MODULE_CONCEPTS.items():
+        cards += f'''
+        <div class="p-4 bg-slate-800 rounded-xl border border-slate-700 mb-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xl">📚</span>
+            <span class="text-yellow-400 font-bold">0%</span>
+          </div>
+          <h3 class="font-bold mb-1">{m["title"]}</h3>
+          <p class="text-sm text-slate-400 mb-3">{m["duration"]}</p>
+          <div class="flex gap-2">
+            <a href="flashcards-{mid}.html" class="flex-1 text-center py-2 bg-indigo-600/30 hover:bg-indigo-600/50 rounded-lg text-sm">🧠 Flashcards</a>
+            <a href="quiz-{mid}.html" class="flex-1 text-center py-2 bg-green-600/30 hover:bg-green-600/50 rounded-lg text-sm">📝 Quiz</a>
+          </div>
+        </div>'''
     
-    if not progress:
-        return """<!DOCTYPE html>
-<html><head><script src="https://cdn.tailwindcss.com"></script></head>
-<body class="bg-slate-900 min-h-screen text-white p-8">
-<h1>No progress data found</h1></body></html>"""
-    
-    # Build progress data
-    modules = progress.get("progress", {}).get("modules", {})
-    
-    module_items = ""
-    for module_id, data in modules.items():
-        status = data.get("status", "not-started")
-        score = data.get("quizScore", 0)
-        
-        status_icon = {"completed": "✅", "in-progress": "⏳", "not-started": "⬜"}.get(status, "⬜")
-        
-        module_items += f"""
-        <div class="flex items-center justify-between p-3 bg-slate-800 rounded mb-2">
-          <span>{status_icon} {module_id}</span>
-          <span class="text-yellow-400">{score}%</span>
-        </div>
-"""
-    
-    # Calculate overall progress
-    total_modules = 5
-    completed = sum(1 for m in modules.values() if m.get("status") == "completed")
-    progress_pct = int((completed / total_modules) * 100)
-    
-    return f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Progress</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-slate-900 min-h-screen text-white p-8">
-  <div class="max-w-2xl mx-auto">
-    <h1 class="text-3xl font-bold mb-8 text-center">📊 Your Learning Progress</h1>
-    
-    <!-- Overall Progress -->
-    <div class="mb-8">
-      <div class="flex justify-between mb-2">
-        <span>Overall Progress</span>
-        <span>{progress_pct}%</span>
-      </div>
-      <div class="w-full bg-slate-700 rounded-full h-4">
-        <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-4 rounded-full" style="width: {progress_pct}%"></div>
-      </div>
-    </div>
-    
-    <!-- Module Progress -->
-    <h2 class="text-xl font-bold mb-4">Modules</h2>
-    {module_items}
-    
-    <!-- Quick Actions -->
-    <div class="mt-8 grid grid-cols-2 gap-4">
-      <a href="flashcards.html?student={student_id}" class="block text-center bg-indigo-600 hover:bg-indigo-700 py-3 rounded-lg">
-        🧠 Flashcards
-      </a>
-      <a href="quiz.html?student={student_id}" class="block text-center bg-green-600 hover:bg-green-700 py-3 rounded-lg">
-        📝 Take Quiz
-      </a>
-    </div>
-  </div>
-</body>
-</html>"""
+    return f'''<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Progress</title><script src="https://cdn.tailwindcss.com"></script>
+</head><body class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900 min-h-screen text-white p-8">
+<div class="max-w-3xl mx-auto"><div class="text-center mb-8"><h1 class="text-4xl font-bold mb-2">📊 Your Learning Progress</h1><p class="text-slate-400">Track your AI Upskill journey</p></div>
+<div class="bg-slate-800 rounded-2xl p-6 mb-8 border border-slate-700 text-center"><h2 class="text-xl mb-2">Overall</h2><p class="text-4xl font-bold text-indigo-400">0%</p></div>
+<h2 class="text-xl font-bold mb-4">Modules</h2>{cards}
+<div class="mt-8 p-4 bg-yellow-900/30 rounded-xl border border-yellow-600/50"><h3 class="font-bold text-yellow-400 mb-2">🔔 Spaced Repetition</h3><p class="text-slate-300 text-sm">Review at: Day 1, Day 3, Day 7, Day 14 for best retention!</p></div>
+</div></body></html>'''
 
+def generate_all():
+    for mid in MODULE_CONCEPTS:
+        (OUTPUT_DIR / f"flashcards-{mid}.html").write_text(gen_flashcards(mid))
+        (OUTPUT_DIR / f"quiz-{mid}.html").write_text(gen_quiz(mid))
+        print(f"✅ Generated {mid}")
+    (OUTPUT_DIR / "progress.html").write_text(gen_progress())
+    print("✅ Generated progress.html")
 
-def generate_all_artifacts(student_id: str, module_ids: list[str] = None) -> dict:
-    """
-    Generate all artifacts for a student.
-    
-    Returns dict of generated files.
-    """
-    if module_ids is None:
-        module_ids = list(MODULE_CONCEPTS.keys())
-    
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    
-    generated = {}
-    
-    # Generate progress page (always needed)
-    progress_file = OUTPUT_DIR / "progress.html"
-    progress_file.write_text(generate_progress(student_id), encoding='utf-8')
-    generated["progress"] = str(progress_file)
-    
-    # Generate flashcards and quizzes for each module
-    for module_id in module_ids:
-        if module_id not in MODULE_CONCEPTS:
-            continue
-        
-        # Flashcards
-        flash_file = OUTPUT_DIR / f"flashcards-{module_id}.html"
-        flash_file.write_text(generate_flashcards(student_id, module_id), encoding='utf-8')
-        generated[f"flashcards-{module_id}"] = str(flash_file)
-        
-        # Quiz
-        quiz_file = OUTPUT_DIR / f"quiz-{module_id}.html"
-        quiz_file.write_text(generate_quiz(student_id, module_id), encoding='utf-8')
-        generated[f"quiz-{module_id}"] = str(quiz_file)
-    
-    return generated
-
-
-def list_available_artifacts() -> dict:
-    """List all available artifact types."""
-    return {
-        "flashcards": list(MODULE_CONCEPTS.keys()),
-        "quizzes": list(MODULE_CONCEPTS.keys()),
-        "progress": ["progress.html"]
-    }
-
-
-# CLI Interface
 if __name__ == "__main__":
-    import sys
-    
-    if len(sys.argv) < 2:
-        print("""
-Artifact Generator
-==================
-Usage:
-  python artifact_generator.py list                              - List available artifacts
-  python artifact_generator.py flashcards <student_id> <module> - Generate flashcards
-  python artifact_generator.py quiz <student_id> <module>       - Generate quiz
-  python artifact_generator.py progress <student_id>            - Generate progress view
-  python artifact_generator.py generate <student_id>            - Generate all artifacts
-        """)
-        sys.exit(1)
-    
-    command = sys.argv[1]
-    
-    if command == "list":
-        artifacts = list_available_artifacts()
-        print("📦 Available Artifacts:")
-        for artifact_type, modules in artifacts.items():
-            print(f"  {artifact_type}: {modules}")
-    
-    elif command == "flashcards" and len(sys.argv) >= 4:
-        student_id = sys.argv[2]
-        module_id = sys.argv[3]
-        content = generate_flashcards(student_id, module_id)
-        output_file = OUTPUT_DIR / f"flashcards-{module_id}.html"
-        output_file.write_text(content, encoding='utf-8')
-        print(f"✅ Generated: {output_file}")
-    
-    elif command == "quiz" and len(sys.argv) >= 4:
-        student_id = sys.argv[2]
-        module_id = sys.argv[3]
-        content = generate_quiz(student_id, module_id)
-        output_file = OUTPUT_DIR / f"quiz-{module_id}.html"
-        output_file.write_text(content, encoding='utf-8')
-        print(f"✅ Generated: {output_file}")
-    
-    elif command == "progress" and len(sys.argv) >= 3:
-        student_id = sys.argv[2]
-        content = generate_progress(student_id)
-        output_file = OUTPUT_DIR / "progress.html"
-        output_file.write_text(content, encoding='utf-8')
-        print(f"✅ Generated: {output_file}")
-    
-    elif command == "generate" and len(sys.argv) >= 3:
-        student_id = sys.argv[2]
-        generated = generate_all_artifacts(student_id)
-        print(f"[OK] Generated {len(generated)} artifacts:")
-    for name, path in generated.items():
-        print(f"  * {name}: {path}")
-    
-    else:
-        print("Invalid command. Run without args for usage.")
+    generate_all()
