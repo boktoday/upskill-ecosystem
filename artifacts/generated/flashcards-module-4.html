@@ -13,76 +13,105 @@
     .card-back { transform: rotateY(180deg); }
   </style>
 </head>
-<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900 min-h-screen text-white p-8">
-  <div class="max-w-2xl mx-auto">
-    <div class="text-center mb-8">
-      <h1 class="text-4xl font-bold mb-2">🧠 Strategy, Ethics, Application</h1>
-      <p class="text-slate-400">30 min • Click cards to flip</p>
-    </div>
-    
-    <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
-      <div class="card-inner relative w-full h-full">
-        <div class="card-front absolute w-full h-full bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl p-6 flex items-center justify-center shadow-lg">
-          <p class="text-2xl font-bold text-center">AI Ethics</p>
-        </div>
-        <div class="card-back absolute w-full h-full bg-gradient-to-br from-green-600 to-teal-600 rounded-xl p-6 flex items-center justify-center">
-          <p class="text-lg text-center">Moral principles: fairness, transparency, privacy, safety.</p>
-        </div>
+<body class="min-h-screen" style="background: linear-gradient(160deg, #FEF9EC 0%, #FFCD94 100%);">
+
+  <!-- Header -->
+  <div style="background:#F0839D; box-shadow:0 2px 12px rgba(240,131,157,0.3);">
+    <div class="max-w-2xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span style="background:#FEF9EC;color:#F0839D;font-weight:800;font-size:1rem;padding:3px 14px;border-radius:999px;">AI Agent Upskill</span>
+        <span style="color:rgba(254,249,236,0.7);font-weight:600;">|</span>
+        <span style="color:#FEF9EC;font-weight:600;">Module 4: Strategy, Ethics, Application</span>
       </div>
-    </div>
-    <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
-      <div class="card-inner relative w-full h-full">
-        <div class="card-front absolute w-full h-full bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl p-6 flex items-center justify-center shadow-lg">
-          <p class="text-2xl font-bold text-center">Hallucination</p>
-        </div>
-        <div class="card-back absolute w-full h-full bg-gradient-to-br from-green-600 to-teal-600 rounded-xl p-6 flex items-center justify-center">
-          <p class="text-lg text-center">AI generating false information presented as fact.</p>
-        </div>
-      </div>
-    </div>
-    <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
-      <div class="card-inner relative w-full h-full">
-        <div class="card-front absolute w-full h-full bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl p-6 flex items-center justify-center shadow-lg">
-          <p class="text-2xl font-bold text-center">Prompt Injection</p>
-        </div>
-        <div class="card-back absolute w-full h-full bg-gradient-to-br from-green-600 to-teal-600 rounded-xl p-6 flex items-center justify-center">
-          <p class="text-lg text-center">Malicious input to make AI ignore instructions.</p>
-        </div>
-      </div>
-    </div>
-    <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
-      <div class="card-inner relative w-full h-full">
-        <div class="card-front absolute w-full h-full bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl p-6 flex items-center justify-center shadow-lg">
-          <p class="text-2xl font-bold text-center">Data Privacy</p>
-        </div>
-        <div class="card-back absolute w-full h-full bg-gradient-to-br from-green-600 to-teal-600 rounded-xl p-6 flex items-center justify-center">
-          <p class="text-lg text-center">Protecting user data. GDPR, consent, minimal collection.</p>
-        </div>
-      </div>
-    </div>
-    <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
-      <div class="card-inner relative w-full h-full">
-        <div class="card-front absolute w-full h-full bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl p-6 flex items-center justify-center shadow-lg">
-          <p class="text-2xl font-bold text-center">Human Oversight</p>
-        </div>
-        <div class="card-back absolute w-full h-full bg-gradient-to-br from-green-600 to-teal-600 rounded-xl p-6 flex items-center justify-center">
-          <p class="text-lg text-center">Keeping humans in the loop for important decisions.</p>
-        </div>
-      </div>
-    </div>
-    <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
-      <div class="card-inner relative w-full h-full">
-        <div class="card-front absolute w-full h-full bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl p-6 flex items-center justify-center shadow-lg">
-          <p class="text-2xl font-bold text-center">Practical Use Cases</p>
-        </div>
-        <div class="card-back absolute w-full h-full bg-gradient-to-br from-green-600 to-teal-600 rounded-xl p-6 flex items-center justify-center">
-          <p class="text-lg text-center">Real applications: customer service, content, data.</p>
-        </div>
-      </div>
-    </div>
-    <div class="text-center mt-8">
-      <a href="progress.html" class="px-6 py-3 bg-slate-700 rounded-lg hover:bg-slate-600">📊 Progress</a>
+      <a href="progress.html" style="background:rgba(254,249,236,0.2);color:#FEF9EC;padding:6px 14px;border-radius:999px;font-weight:600;font-size:0.85rem;text-decoration:none;">📊 Progress</a>
     </div>
   </div>
+  <!-- /Header -->
+
+  <div class="max-w-2xl mx-auto px-4 py-8">
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold mb-2" style="color:#F0839D;">🧠 Strategy, Ethics, Application</h1>
+      <p style="color:#555;font-style:italic;">30 min &bull; Click cards to flip</p>
+    </div>
+
+    <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner relative w-full h-full">
+        <div class="card-front absolute w-full h-full bg-white rounded-2xl p-6 flex items-center justify-center shadow-lg border-l-4 border-[#F0839D]">
+          <p class="text-2xl font-bold text-center" style="color:#3D3935;">AI Ethics</p>
+        </div>
+        <div class="card-back absolute w-full h-full rounded-2xl p-6 flex items-center justify-center shadow-lg" style="background:#8DA6B0;">
+          <p class="text-lg text-center text-white">Moral principles: fairness, transparency, privacy, safety.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner relative w-full h-full">
+        <div class="card-front absolute w-full h-full bg-white rounded-2xl p-6 flex items-center justify-center shadow-lg border-l-4 border-[#F0839D]">
+          <p class="text-2xl font-bold text-center" style="color:#3D3935;">Hallucination</p>
+        </div>
+        <div class="card-back absolute w-full h-full rounded-2xl p-6 flex items-center justify-center shadow-lg" style="background:#8DA6B0;">
+          <p class="text-lg text-center text-white">AI generating false information presented as fact.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner relative w-full h-full">
+        <div class="card-front absolute w-full h-full bg-white rounded-2xl p-6 flex items-center justify-center shadow-lg border-l-4 border-[#F0839D]">
+          <p class="text-2xl font-bold text-center" style="color:#3D3935;">Prompt Injection</p>
+        </div>
+        <div class="card-back absolute w-full h-full rounded-2xl p-6 flex items-center justify-center shadow-lg" style="background:#8DA6B0;">
+          <p class="text-lg text-center text-white">Malicious input to make AI ignore instructions.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner relative w-full h-full">
+        <div class="card-front absolute w-full h-full bg-white rounded-2xl p-6 flex items-center justify-center shadow-lg border-l-4 border-[#F0839D]">
+          <p class="text-2xl font-bold text-center" style="color:#3D3935;">Data Privacy</p>
+        </div>
+        <div class="card-back absolute w-full h-full rounded-2xl p-6 flex items-center justify-center shadow-lg" style="background:#8DA6B0;">
+          <p class="text-lg text-center text-white">Protecting user data. GDPR, consent, minimal collection.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner relative w-full h-full">
+        <div class="card-front absolute w-full h-full bg-white rounded-2xl p-6 flex items-center justify-center shadow-lg border-l-4 border-[#F0839D]">
+          <p class="text-2xl font-bold text-center" style="color:#3D3935;">Human Oversight</p>
+        </div>
+        <div class="card-back absolute w-full h-full rounded-2xl p-6 flex items-center justify-center shadow-lg" style="background:#8DA6B0;">
+          <p class="text-lg text-center text-white">Keeping humans in the loop for important decisions.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card cursor-pointer w-full h-48 mb-4" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner relative w-full h-full">
+        <div class="card-front absolute w-full h-full bg-white rounded-2xl p-6 flex items-center justify-center shadow-lg border-l-4 border-[#F0839D]">
+          <p class="text-2xl font-bold text-center" style="color:#3D3935;">Practical Use Cases</p>
+        </div>
+        <div class="card-back absolute w-full h-full rounded-2xl p-6 flex items-center justify-center shadow-lg" style="background:#8DA6B0;">
+          <p class="text-lg text-center text-white">Real applications: customer service, content, data.</p>
+        </div>
+      </div>
+    </div>
+
+    <p style="text-align:center;color:#888;font-style:italic;margin-top:8px;">Click a card to reveal the answer</p>
+
+    <div class="text-center mt-8">
+      <a href="progress.html" style="display:inline-block;padding:12px 28px;background:#F0839D;color:#fff;font-weight:700;border-radius:12px;text-decoration:none;box-shadow:0 4px 12px rgba(240,131,157,0.4);">📊 Progress Dashboard</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="text-align:center;padding:24px;color:#888;font-size:0.85rem;border-top:1px solid rgba(240,131,157,0.2);margin-top:24px;">
+    AI Agent Upskill &mdash; Built with OpenClaw
+  </div>
+  <!-- /Footer -->
+
 </body>
 </html>
