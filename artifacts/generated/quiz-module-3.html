@@ -3,263 +3,244 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz - Deep Dive into OpenClaw</title>
+  <title>Quiz — Deep Dive into OpenClaw</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    .opt { transition: all 0.2s; }
-    .opt.selected { border-color: #6366f1; background: rgba(99,102,241,0.1); }
-    .opt.correct { border-color: #22c55e; background: rgba(34,197,94,0.2); }
-    .opt.incorrect { border-color: #ef4444; background: rgba(239,68,68,0.2); }
-    .feedback.show { display: block !important; }
+    * { box-sizing: border-box; margin: 0; padding: 0; } body { font-family: system-ui, -apple-system, sans-serif; }
+    body { background: linear-gradient(180deg, #FEF9EC 0%, #F4A261 100%); min-height: 100vh; color: #3D3935; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+    .q-card { animation: fadeUp 0.35s ease both; }
+    .opt { cursor:pointer; }
+    .opt:hover { border-color: #F0839D !important; background: rgba(240,131,157,0.06) !important; }
+    .opt.selected { border-color: #F0839D !important; background: rgba(240,131,157,0.1) !important; }
+    .opt.correct { border-color: #22c55e !important; background: rgba(34,197,94,0.1) !important; }
+    .opt.wrong { border-color: #ef4444 !important; background: rgba(239,68,68,0.1) !important; }
   </style>
 </head>
-<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-green-900 min-h-screen text-white p-8">
-  <div class="max-w-3xl mx-auto">
-    <div class="text-center mb-8">
-      <h1 class="text-4xl font-bold mb-2">📝 Deep Dive into OpenClaw</h1>
-      <p class="text-slate-400">Select answers • Instant feedback • See your score!</p>
+<body>
+  <div style="max-width:720px; margin:0 auto; padding:28px 16px 80px;">
+
+    <div style="text-align:center; margin-bottom:24px;">
+  <span style="display:inline-flex; align-items:center; gap:6px; background:#F0839D; color:#fff; padding:5px 14px; border-radius:20px; font-size:12px; font-weight:600;">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+    AI Agent Upskill
+  </span>
+</div>
+
+    <div style="text-align:center; margin-bottom:28px;">
+      <h1 style="font-size:clamp(22px,5vw,36px); font-weight:900; color:#3D3935; line-height:1.15; margin-bottom:6px;">Deep Dive into OpenClaw</h1>
+      <p style="color:#555; font-size:14px;">Select answers · Instant feedback · See your score</p>
     </div>
-    
-    <div class="fixed top-4 right-4 bg-slate-800 rounded-xl p-4 shadow-xl border border-slate-700 z-50">
-      <p class="text-slate-400 text-sm text-center">Score</p>
-      <p id="score" class="text-4xl font-bold text-green-400 text-center">0</p>
-      <p class="text-slate-400 text-sm text-center">/ 5</p>
-    </div>
-    
+
+    <div style="position:fixed; top:16px; right:16px; background:#37464F; color:#fff; border-radius:16px; padding:12px 16px; z-index:50; text-align:center; box-shadow:0 4px 20px rgba(0,0,0,0.15);">
+  <p style="font-size:11px; color:rgba(255,255,255,0.65); margin-bottom:1px;">Score</p>
+  <p id="score" style="font-size:32px; font-weight:900; color:#F0839D; line-height:1.2;">0</p>
+  <p style="font-size:11px; color:rgba(255,255,255,0.45);">/ 5</p>
+</div>
+
     <form id="quiz-form">
-      <div class="question mb-8 p-6 bg-slate-800 rounded-xl border border-slate-700" data-question="1">
-        <p class="text-xl font-bold mb-4">Q1. Which file defines agent persona?</p>
-        <div class="options space-y-2">
-              <label class="opt flex items-center p-4 rounded-lg border-2 border-slate-600 hover:border-indigo-400 cursor-pointer mb-2 transition-all" data-correct="0">
-                <input type="radio" name="q1" value="0" class="hidden">
-                <span class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center mr-3 font-bold text-lg">A</span>
-                <span class="opt-text">SOUL.md</span>
-              </label>
-              <label class="opt flex items-center p-4 rounded-lg border-2 border-slate-600 hover:border-indigo-400 cursor-pointer mb-2 transition-all" data-correct="0">
-                <input type="radio" name="q1" value="1" class="hidden">
-                <span class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center mr-3 font-bold text-lg">B</span>
-                <span class="opt-text">AGENTS.md</span>
-              </label>
-              <label class="opt flex items-center p-4 rounded-lg border-2 border-slate-600 hover:border-indigo-400 cursor-pointer mb-2 transition-all" data-correct="0">
-                <input type="radio" name="q1" value="2" class="hidden">
-                <span class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center mr-3 font-bold text-lg">C</span>
-                <span class="opt-text">TOOLS.md</span>
-              </label>
-              <label class="opt flex items-center p-4 rounded-lg border-2 border-slate-600 hover:border-indigo-400 cursor-pointer mb-2 transition-all" data-correct="0">
-                <input type="radio" name="q1" value="3" class="hidden">
-                <span class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center mr-3 font-bold text-lg">D</span>
-                <span class="opt-text">USER.md</span>
-              </label></div>
-        <div class="feedback mt-4 p-4 rounded-lg hidden">
-          <p class="fb-text font-bold"></p>
-          <p class="exp-text mt-2 text-sm text-slate-300"></p>
+      <div class="q-card" style="background:#fff; border-radius:20px; padding:22px 20px; margin-bottom:18px; box-shadow:0 4px 20px rgba(240,131,157,0.12); border-top:4px solid #F0839D; animation-delay:0.06s;">
+        <p style="font-size:clamp(15px,3vw,17px); font-weight:700; color:#3D3935; margin-bottom:14px; line-height:1.45;">Q1. What is an OpenClaw Skill?</p>
+        <div class="options">
+          <div class="opt" data-correct="1" onclick="selectOpt(this, 1)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
+            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">A</span>
+            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">A type of AI model</span>
+          </div>
+          <div class="opt" data-correct="1" onclick="selectOpt(this, 1)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
+            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">B</span>
+            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">A reusable capability that extends what the agent can do</span>
+          </div>
+          <div class="opt" data-correct="1" onclick="selectOpt(this, 1)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
+            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">C</span>
+            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">A messaging platform</span>
+          </div>
+          <div class="opt" data-correct="1" onclick="selectOpt(this, 1)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
+            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">D</span>
+            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">A hardware device</span>
+          </div>
+        </div>
+        <div class="feedback-box" style="display:none;">
+          <p class="fb-text" style="font-weight:700;"></p>
+          <p class="exp-text" style="margin-top:4px; font-size:13px;"></p>
         </div>
       </div>
-      <div class="question mb-8 p-6 bg-slate-800 rounded-xl border border-slate-700" data-question="2">
-        <p class="text-xl font-bold mb-4">Q2. What are the 4 memory layers?</p>
-        <div class="options space-y-2">
-              <label class="opt flex items-center p-4 rounded-lg border-2 border-slate-600 hover:border-indigo-400 cursor-pointer mb-2 transition-all" data-correct="1">
-                <input type="radio" name="q2" value="0" class="hidden">
-                <span class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center mr-3 font-bold text-lg">A</span>
-                <span class="opt-text">Input, Process, Output, Store</span>
-              </label>
-              <label class="opt flex items-center p-4 rounded-lg border-2 border-slate-600 hover:border-indigo-400 cursor-pointer mb-2 transition-all" data-correct="1">
-                <input type="radio" name="q2" value="1" class="hidden">
-                <span class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center mr-3 font-bold text-lg">B</span>
-                <span class="opt-text">Working, Short, Long, Semantic</span>
-              </label>
-              <label class="opt flex items-center p-4 rounded-lg border-2 border-slate-600 hover:border-indigo-400 cursor-pointer mb-2 transition-all" data-correct="1">
-                <input type="radio" name="q2" value="2" class="hidden">
-                <span class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center mr-3 font-bold text-lg">C</span>
-                <span class="opt-text">Fast, Medium, Slow, Archive</span>
-              </label>
-              <label class="opt flex items-center p-4 rounded-lg border-2 border-slate-600 hover:border-indigo-400 cursor-pointer mb-2 transition-all" data-correct="1">
-                <input type="radio" name="q2" value="3" class="hidden">
-                <span class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center mr-3 font-bold text-lg">D</span>
-                <span class="opt-text">User, Agent, Tool, Channel</span>
-              </label></div>
-        <div class="feedback mt-4 p-4 rounded-lg hidden">
-          <p class="fb-text font-bold"></p>
-          <p class="exp-text mt-2 text-sm text-slate-300"></p>
+      <div class="q-card" style="background:#fff; border-radius:20px; padding:22px 20px; margin-bottom:18px; box-shadow:0 4px 20px rgba(240,131,157,0.12); border-top:4px solid #F0839D; animation-delay:0.12s;">
+        <p style="font-size:clamp(15px,3vw,17px); font-weight:700; color:#3D3935; margin-bottom:14px; line-height:1.45;">Q2. How many files make up an OpenClaw agent?</p>
+        <div class="options">
+          <div class="opt" data-correct="2" onclick="selectOpt(this, 2)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
+            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">A</span>
+            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">1 file</span>
+          </div>
+          <div class="opt" data-correct="2" onclick="selectOpt(this, 2)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
+            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">B</span>
+            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">2 files</span>
+          </div>
+          <div class="opt" data-correct="2" onclick="selectOpt(this, 2)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
+            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">C</span>
+            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">4 files (SOUL, AGENTS, TOOLS, USER)</span>
+          </div>
+          <div class="opt" data-correct="2" onclick="selectOpt(this, 2)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
+            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">D</span>
+            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">10+ files</span>
+          </div>
+        </div>
+        <div class="feedback-box" style="display:none;">
+          <p class="fb-text" style="font-weight:700;"></p>
+          <p class="exp-text" style="margin-top:4px; font-size:13px;"></p>
         </div>
       </div>
-      <div class="question mb-8 p-6 bg-slate-800 rounded-xl border border-slate-700" data-question="3">
-        <p class="text-xl font-bold mb-4">Q3. What does the Gateway do?</p>
-        <div class="options space-y-2">
-              <label class="opt flex items-center p-4 rounded-lg border-2 border-slate-600 hover:border-indigo-400 cursor-pointer mb-2 transition-all" data-correct="1">
-                <input type="radio" name="q3" value="0" class="hidden">
-                <span class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center mr-3 font-bold text-lg">A</span>
-                <span class="opt-text">Connects to internet</span>
-              </label>
-              <label class="opt flex items-center p-4 rounded-lg border-2 border-slate-600 hover:border-indigo-400 cursor-pointer mb-2 transition-all" data-correct="1">
-                <input type="radio" name="q3" value="1" class="hidden">
-                <span class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center mr-3 font-bold text-lg">B</span>
-                <span class="opt-text">Security, routing, cron</span>
-              </label>
-              <label class="opt flex items-center p-4 rounded-lg border-2 border-slate-600 hover:border-indigo-400 cursor-pointer mb-2 transition-all" data-correct="1">
-                <input type="radio" name="q3" value="2" class="hidden">
-                <span class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center mr-3 font-bold text-lg">C</span>
-                <span class="opt-text">Stores memories</span>
-              </label>
-              <label class="opt flex items-center p-4 rounded-lg border-2 border-slate-600 hover:border-indigo-400 cursor-pointer mb-2 transition-all" data-correct="1">
-                <input type="radio" name="q3" value="3" class="hidden">
-                <span class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center mr-3 font-bold text-lg">D</span>
-                <span class="opt-text">Creates agents</span>
-              </label></div>
-        <div class="feedback mt-4 p-4 rounded-lg hidden">
-          <p class="fb-text font-bold"></p>
-          <p class="exp-text mt-2 text-sm text-slate-300"></p>
+      <div class="q-card" style="background:#fff; border-radius:20px; padding:22px 20px; margin-bottom:18px; box-shadow:0 4px 20px rgba(240,131,157,0.12); border-top:4px solid #F0839D; animation-delay:0.18s;">
+        <p style="font-size:clamp(15px,3vw,17px); font-weight:700; color:#3D3935; margin-bottom:14px; line-height:1.45;">Q3. What does SOUL.md define?</p>
+        <div class="options">
+          <div class="opt" data-correct="1" onclick="selectOpt(this, 3)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
+            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">A</span>
+            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">Technical capabilities</span>
+          </div>
+          <div class="opt" data-correct="1" onclick="selectOpt(this, 3)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
+            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">B</span>
+            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">The agent's personality, tone, and identity</span>
+          </div>
+          <div class="opt" data-correct="1" onclick="selectOpt(this, 3)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
+            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">C</span>
+            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">File locations</span>
+          </div>
+          <div class="opt" data-correct="1" onclick="selectOpt(this, 3)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
+            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">D</span>
+            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">API keys</span>
+          </div>
+        </div>
+        <div class="feedback-box" style="display:none;">
+          <p class="fb-text" style="font-weight:700;"></p>
+          <p class="exp-text" style="margin-top:4px; font-size:13px;"></p>
         </div>
       </div>
-      <div class="question mb-8 p-6 bg-slate-800 rounded-xl border border-slate-700" data-question="4">
-        <p class="text-xl font-bold mb-4">Q4. What is a Channel?</p>
-        <div class="options space-y-2">
-              <label class="opt flex items-center p-4 rounded-lg border-2 border-slate-600 hover:border-indigo-400 cursor-pointer mb-2 transition-all" data-correct="2">
-                <input type="radio" name="q4" value="0" class="hidden">
-                <span class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center mr-3 font-bold text-lg">A</span>
-                <span class="opt-text">TV channel</span>
-              </label>
-              <label class="opt flex items-center p-4 rounded-lg border-2 border-slate-600 hover:border-indigo-400 cursor-pointer mb-2 transition-all" data-correct="2">
-                <input type="radio" name="q4" value="1" class="hidden">
-                <span class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center mr-3 font-bold text-lg">B</span>
-                <span class="opt-text">YouTube video</span>
-              </label>
-              <label class="opt flex items-center p-4 rounded-lg border-2 border-slate-600 hover:border-indigo-400 cursor-pointer mb-2 transition-all" data-correct="2">
-                <input type="radio" name="q4" value="2" class="hidden">
-                <span class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center mr-3 font-bold text-lg">C</span>
-                <span class="opt-text">Communication platform</span>
-              </label>
-              <label class="opt flex items-center p-4 rounded-lg border-2 border-slate-600 hover:border-indigo-400 cursor-pointer mb-2 transition-all" data-correct="2">
-                <input type="radio" name="q4" value="3" class="hidden">
-                <span class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center mr-3 font-bold text-lg">D</span>
-                <span class="opt-text">Memory type</span>
-              </label></div>
-        <div class="feedback mt-4 p-4 rounded-lg hidden">
-          <p class="fb-text font-bold"></p>
-          <p class="exp-text mt-2 text-sm text-slate-300"></p>
+      <div class="q-card" style="background:#fff; border-radius:20px; padding:22px 20px; margin-bottom:18px; box-shadow:0 4px 20px rgba(240,131,157,0.12); border-top:4px solid #F0839D; animation-delay:0.24s;">
+        <p style="font-size:clamp(15px,3vw,17px); font-weight:700; color:#3D3935; margin-bottom:14px; line-height:1.45;">Q4. What does AGENTS.md contain?</p>
+        <div class="options">
+          <div class="opt" data-correct="1" onclick="selectOpt(this, 4)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
+            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">A</span>
+            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">Business logic</span>
+          </div>
+          <div class="opt" data-correct="1" onclick="selectOpt(this, 4)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
+            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">B</span>
+            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">Detailed instructions for the agent's behaviour and workflows</span>
+          </div>
+          <div class="opt" data-correct="1" onclick="selectOpt(this, 4)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
+            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">C</span>
+            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">User data</span>
+          </div>
+          <div class="opt" data-correct="1" onclick="selectOpt(this, 4)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
+            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">D</span>
+            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">System configuration</span>
+          </div>
+        </div>
+        <div class="feedback-box" style="display:none;">
+          <p class="fb-text" style="font-weight:700;"></p>
+          <p class="exp-text" style="margin-top:4px; font-size:13px;"></p>
         </div>
       </div>
-      <div class="question mb-8 p-6 bg-slate-800 rounded-xl border border-slate-700" data-question="5">
-        <p class="text-xl font-bold mb-4">Q5. What is Jentic?</p>
-        <div class="options space-y-2">
-              <label class="opt flex items-center p-4 rounded-lg border-2 border-slate-600 hover:border-indigo-400 cursor-pointer mb-2 transition-all" data-correct="2">
-                <input type="radio" name="q5" value="0" class="hidden">
-                <span class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center mr-3 font-bold text-lg">A</span>
-                <span class="opt-text">A chatbot</span>
-              </label>
-              <label class="opt flex items-center p-4 rounded-lg border-2 border-slate-600 hover:border-indigo-400 cursor-pointer mb-2 transition-all" data-correct="2">
-                <input type="radio" name="q5" value="1" class="hidden">
-                <span class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center mr-3 font-bold text-lg">B</span>
-                <span class="opt-text">A programming language</span>
-              </label>
-              <label class="opt flex items-center p-4 rounded-lg border-2 border-slate-600 hover:border-indigo-400 cursor-pointer mb-2 transition-all" data-correct="2">
-                <input type="radio" name="q5" value="2" class="hidden">
-                <span class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center mr-3 font-bold text-lg">C</span>
-                <span class="opt-text">Security for credentials</span>
-              </label>
-              <label class="opt flex items-center p-4 rounded-lg border-2 border-slate-600 hover:border-indigo-400 cursor-pointer mb-2 transition-all" data-correct="2">
-                <input type="radio" name="q5" value="3" class="hidden">
-                <span class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center mr-3 font-bold text-lg">D</span>
-                <span class="opt-text">An AI model</span>
-              </label></div>
-        <div class="feedback mt-4 p-4 rounded-lg hidden">
-          <p class="fb-text font-bold"></p>
-          <p class="exp-text mt-2 text-sm text-slate-300"></p>
+      <div class="q-card" style="background:#fff; border-radius:20px; padding:22px 20px; margin-bottom:18px; box-shadow:0 4px 20px rgba(240,131,157,0.12); border-top:4px solid #F0839D; animation-delay:0.3s;">
+        <p style="font-size:clamp(15px,3vw,17px); font-weight:700; color:#3D3935; margin-bottom:14px; line-height:1.45;">Q5. What is the purpose of memory files?</p>
+        <div class="options">
+          <div class="opt" data-correct="1" onclick="selectOpt(this, 5)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
+            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">A</span>
+            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">To store API keys</span>
+          </div>
+          <div class="opt" data-correct="1" onclick="selectOpt(this, 5)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
+            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">B</span>
+            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">To provide continuity between sessions</span>
+          </div>
+          <div class="opt" data-correct="1" onclick="selectOpt(this, 5)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
+            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">C</span>
+            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">To speed up the internet</span>
+          </div>
+          <div class="opt" data-correct="1" onclick="selectOpt(this, 5)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
+            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">D</span>
+            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">To format documents</span>
+          </div>
         </div>
-      </div>
-      <div class="text-center mt-8">
-        <button type="submit" class="px-8 py-4 bg-gradient-to-r from-green-600 to-teal-600 rounded-xl font-bold text-lg shadow-lg hover:from-green-700 hover:to-teal-700">
-          🎯 See Final Score
-        </button>
+        <div class="feedback-box" style="display:none;">
+          <p class="fb-text" style="font-weight:700;"></p>
+          <p class="exp-text" style="margin-top:4px; font-size:13px;"></p>
+        </div>
       </div>
     </form>
-    
-    <div id="results" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
-      <div class="bg-slate-800 rounded-2xl p-8 max-w-md w-full text-center border border-slate-700">
-        <div id="results-icon" class="text-6xl mb-4">🎉</div>
-        <h2 id="results-title" class="text-3xl font-bold mb-4">Great Job!</h2>
-        <p id="results-message" class="text-slate-400 mb-6"></p>
-        <p id="results-score" class="text-5xl font-bold text-green-400 mb-6"></p>
-        <div class="space-y-3">
-          <a href="progress.html" class="block w-full py-3 bg-indigo-600 rounded-lg hover:bg-indigo-700">📊 View Progress</a>
-          <button onclick="document.getElementById('results').classList.add('hidden'); return false;" class="w-full py-3 bg-slate-700 rounded-lg hover:bg-slate-600">✕ Close</button>
-        </div>
-      </div>
-    </div>
+
+    <div style="text-align:center; margin-top:8px; padding-bottom:20px;">
+  <button type="submit" style="background:linear-gradient(135deg,#F0839D,#e0708a); color:#fff; padding:15px 36px; border-radius:30px; font-weight:700; font-size:16px; border:none; cursor:pointer; box-shadow:0 4px 20px rgba(240,131,157,0.35);">
+    See Final Score
+  </button>
+</div>
+    <div id="results" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); align-items:center; justify-content:center; z-index:100; padding:20px;">
+  <div style="background:#fff; border-radius:24px; padding:40px 32px; max-width:420px; width:100%; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.25);">
+    <div id="res-icon" style="font-size:52px; margin-bottom:14px;"></div>
+    <h2 id="res-title" style="font-size:24px; font-weight:900; color:#3D3935; margin-bottom:8px;"></h2>
+    <p id="res-msg" style="color:#555; margin-bottom:20px; font-size:14px;"></p>
+    <p id="res-score" style="font-size:48px; font-weight:900; color:#F0839D; margin-bottom:22px;"></p>
+    <a href="progress.html" style="display:block; background:#F0839D; color:#fff; padding:13px; border-radius:14px; font-weight:700; margin-bottom:10px; text-decoration:none; font-size:15px;">View Progress</a>
+    <button onclick="document.getElementById('results').style.display=\'none\'" style="width:100%; padding:12px; background:#f5f5f5; border:none; border-radius:14px; color:#555; font-weight:600; cursor:pointer;">Close</button>
   </div>
+</div>
+  </div>
+
   
-  <script>
-    let score = 0;
-    const total = 5;
-    
-    document.querySelectorAll('.opt').forEach(opt => {
-      opt.addEventListener('click', function() {
-        const question = this.closest('.question');
-        const allOpts = question.querySelectorAll('.opt');
-        const fb = question.querySelector('.feedback');
-        const correct = parseInt(this.dataset.correct);
-        const selected = parseInt(this.querySelector('input').value);
-        
-        allOpts.forEach(x => {
-          x.classList.remove('selected', 'correct', 'incorrect');
-          x.querySelector('input').checked = false;
-        });
-        
-        this.classList.add('selected');
-        this.querySelector('input').checked = true;
-        fb.classList.remove('hidden');
-        
-        const fbText = fb.querySelector('.fb-text');
-        const expText = fb.querySelector('.exp-text');
-        
-        if (selected === correct) {
-          this.classList.add('correct');
-          fbText.textContent = '✅ Correct!';
-          fbText.className = 'fb-text font-bold text-green-400';
-          fb.className = 'feedback mt-4 p-4 rounded-lg bg-green-900/30 show';
-          score++;
-          document.getElementById('score').textContent = score;
-        } else {
-          this.classList.add('incorrect');
-          allOpts[correct].classList.add('correct');
-          fbText.textContent = '❌ Incorrect';
-          fbText.className = 'fb-text font-bold text-red-400';
-          expText.textContent = 'Security framework managing credentials without exposure.';
-          fb.className = 'feedback mt-4 p-4 rounded-lg bg-red-900/30 show';
-        }
-      });
-    });
-    
-    document.getElementById('quiz-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const pct = Math.round((score / total) * 100);
-      const icon = document.getElementById('results-icon');
-      const title = document.getElementById('results-title');
-      const msg = document.getElementById('results-message');
-      const scoreEl = document.getElementById('results-score');
-      
-      scoreEl.textContent = score + '/' + total;
-      
-      if (pct >= 80) {
-        icon.textContent = '🏆';
-        title.textContent = 'Excellent!';
-        msg.textContent = "You mastered this module!";
-      } else if (pct >= 60) {
-        icon.textContent = '👍';
-        title.textContent = 'Good Job!';
-        msg.textContent = 'Review flashcards to strengthen understanding.';
-      } else if (pct >= 40) {
-        icon.textContent = '📚';
-        title.textContent = 'Keep Learning!';
-        msg.textContent = 'Review material and try again.';
-      } else {
-        icon.textContent = '💪';
-        title.textContent = "Don't Give Up!";
-        msg.textContent = 'Study flashcards first, then retry.';
-      }
-      
-      document.getElementById('results').classList.remove('hidden');
-    });
-  </script>
+<script>
+var score = 0;
+var total = 5;
+
+function selectOpt(el, qNum) {
+  var card = el.closest('.q-card');
+  var allOpts = card.querySelectorAll('.opt');
+  var fb = card.querySelector('.feedback-box');
+  var correct = parseInt(el.dataset.correct);
+
+  allOpts.forEach(function(x) {
+    x.classList.remove('selected','correct','wrong');
+  });
+  fb.style.display = 'none';
+  el.classList.add('selected');
+
+  var radios = card.querySelectorAll('input[type=radio]');
+  var selVal = 0;
+  radios.forEach(function(r,i) { if(r.checked) selVal = i; });
+
+  fb.style.display = 'block';
+  var fbText = fb.querySelector('.fb-text');
+  var expText = fb.querySelector('.exp-text');
+
+  if (selVal === correct) {
+    el.classList.add('correct');
+    fbText.textContent = 'Correct!';
+    fbText.style.color = '#16a34a';
+    expText.textContent = '';
+    fb.style.cssText = 'display:block; margin-top:10px; padding:12px; border-radius:10px; background:rgba(34,197,94,0.08); border:1px solid rgba(34,197,94,0.2);';
+    score++;
+    document.getElementById('score').textContent = score;
+  } else {
+    el.classList.add('wrong');
+    allOpts[correct].classList.add('correct');
+    fbText.textContent = 'Incorrect';
+    fbText.style.color = '#dc2626';
+    expText.textContent = '';
+    fb.style.cssText = 'display:block; margin-top:10px; padding:12px; border-radius:10px; background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.2);';
+  }
+}
+
+document.getElementById('quiz-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var pct = Math.round((score / total) * 100);
+  var icon = document.getElementById('res-icon');
+  var title = document.getElementById('res-title');
+  var msg = document.getElementById('res-msg');
+  var scEl = document.getElementById('res-score');
+  var box = document.getElementById('results');
+  scEl.textContent = score + '/' + total;
+  if (pct >= 80) { icon.textContent='Trophy'; title.textContent='Excellent!'; msg.textContent="You mastered this module!"; }
+  else if (pct >= 60) { icon.textContent='ThumbsUp'; title.textContent='Good Job!'; msg.textContent='Review flashcards to strengthen understanding.'; }
+  else if (pct >= 40) { icon.textContent='BookOpen'; title.textContent='Keep Learning!'; msg.textContent='Review material and try again.'; }
+  else { icon.textContent='Fire'; title.textContent="Don't Give Up!"; msg.textContent='Study flashcards first, then retry.'; }
+  box.style.display = 'flex';
+});
+</script>
 </body>
 </html>
