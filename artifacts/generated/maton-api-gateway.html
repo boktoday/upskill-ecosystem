@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maton API Gateway – AI Agent Upskill</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: linear-gradient(180deg, #FEF9EC 0%, #FFCD94 100%); min-height: 100vh; color: #3D3935; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    .section-card { animation: fadeUp 0.4s ease both; }
+    .code-block { background: #37464F; border-radius: 12px; padding: 18px 20px; font-family: 'Courier New', monospace; font-size: 13px; color: #e2e8f0; overflow-x: auto; white-space: pre; line-height: 1.7; }
+    .tab-btn { padding: 8px 18px; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; border: none; transition: all 0.2s; background: #fff; color: #555; border: 2px solid #eee; }
+    .tab-btn.active { background: #F0839D; color: #fff; border-color: #F0839D; }
+    .api-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(240,131,157,0.12); color: #F0839D; padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+    .nav-pill { background: #fff; border-radius: 999px; padding: 6px 16px; font-weight: 600; font-size: 13px; color: #555; text-decoration: none; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  </style>
+</head>
+<body>
+
+  <!-- Top Nav -->
+  <div style="background:#F0839D; box-shadow: 0 2px 12px rgba(240,131,157,0.35); position: sticky; top: 0; z-index: 50;">
+    <div style="max-width: 860px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="background: #FEF9EC; color: #F0839D; font-weight: 800; font-size: 12px; padding: 3px 12px; border-radius: 999px;">AI Agent Upskill</span>
+        <span style="color: rgba(254,249,236,0.7); font-weight: 600;">|</span>
+        <span style="color: #FEF9EC; font-weight: 600; font-size: 14px;">Maton API Gateway</span>
+      </div>
+      <a href="progress.html" style="background: rgba(254,249,236,0.2); color: #FEF9EC; padding: 6px 14px; border-radius: 999px; font-weight: 600; font-size: 13px; text-decoration: none;">Progress →</a>
+    </div>
+  </div>
+
+  <div style="max-width: 860px; margin: 0 auto; padding: 32px 20px 60px;">
+
+    <!-- Hero -->
+    <div style="text-align: center; margin-bottom: 40px; animation: fadeUp 0.4s ease;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(240,131,157,0.15); color: #F0839D; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 700; margin-bottom: 16px; border: 1px solid rgba(240,131,157,0.3);">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Bonus Module · API Integration
+      </div>
+      <h1 style="font-size: clamp(28px, 6vw, 48px); font-weight: 900; color: #3D3935; line-height: 1.1; margin-bottom: 12px;">
+        Connect to 100+ APIs<br/>
+        <span style="color: #F0839D;">with the Maton API Gateway</span>
+      </h1>
+      <p style="color: #555; font-size: clamp(15px, 2.5vw, 17px); max-width: 560px; margin: 0 auto; line-height: 1.6;">
+        Use the Maton API Gateway skill to connect OpenClaw to Google Workspace, Slack, GitHub, Notion, HubSpot, and 100+ other services — with zero OAuth complexity.
+      </p>
+      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
+        <a href="https://maton.ai" target="_blank" style="background: #F0839D; color: #fff; padding: 12px 24px; border-radius: 30px; font-weight: 700; font-size: 14px; text-decoration: none; box-shadow: 0 4px 16px rgba(240,131,157,0.35);">Get API Key →</a>
+        <a href="https://clawhub.ai/byungkyu/api-gateway" target="_blank" style="background: #fff; color: #37464F; padding: 12px 24px; border-radius: 30px; font-weight: 700; font-size: 14px; text-decoration: none; border: 2px solid #eee;">View on ClawhHub</a>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; margin-bottom: 40px;">
+      <div style="background: #fff; border-radius: 16px; padding: 18px; text-align: center; box-shadow: 0 2px 12px rgba(240,131,157,0.1); border-top: 3px solid #F0839D;">
+        <p style="font-size: 28px; font-weight: 900; color: #F0839D;">100+</p>
+        <p style="color: #555; font-size: 12px;">APIs Supported</p>
+      </div>
+      <div style="background: #fff; border-radius: 16px; padding: 18px; text-align: center; box-shadow: 0 2px 12px rgba(240,131,157,0.1); border-top: 3px solid #8DA6B0;">
+        <p style="font-size: 28px; font-weight: 900; color: #8DA6B0;">Zero</p>
+        <p style="color: #555; font-size: 12px;">OAuth Complexity</p>
+      </div>
+      <div style="background: #fff; border-radius: 16px; padding: 18px; text-align: center; box-shadow: 0 2px 12px rgba(240,131,157,0.1); border-top: 3px solid #F4A261;">
+        <p style="font-size: 28px; font-weight: 900; color: #F4A261;">MIT-0</p>
+        <p style="color: #555; font-size: 12px;">License · Free</p>
+      </div>
+      <div style="background: #fff; border-radius: 16px; padding: 18px; text-align: center; box-shadow: 0 2px 12px rgba(240,131,157,0.1); border-top: 3px solid #37464F;">
+        <p style="font-size: 28px; font-weight: 900; color: #37464F;">357</p>
+        <p style="color: #555; font-size: 12px;">Current Installs</p>
+      </div>
+    </div>
+
+    <!-- What Is It -->
+    <div class="section-card" style="background: #fff; border-radius: 24px; padding: 28px 26px; margin-bottom: 20px; box-shadow: 0 4px 24px rgba(240,131,157,0.12); border-top: 4px solid #F0839D;">
+      <h2 style="font-size: 22px; font-weight: 800; color: #3D3935; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+        <span style="background: rgba(240,131,157,0.15); color: #F0839D; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 900;">1</span>
+        What Is the Maton API Gateway?
+      </h2>
+      <p style="color: #555; line-height: 1.7; font-size: 15px; margin-bottom: 14px;">
+        The <strong style="color: #3D3935;">Maton API Gateway</strong> is an OpenClaw skill that lets your AI agent connect to 100+ third-party APIs with <strong style="color: #3D3935;">managed OAuth</strong>. Instead of building OAuth flows for every service, Maton handles it all — you just make simple API calls.
+      </p>
+      <p style="color: #555; line-height: 1.7; font-size: 15px;">
+        Instead of: <code style="background: rgba(240,131,157,0.1); color: #F0839D; padding: 2px 8px; border-radius: 6px;">OAuth app registration → Auth flow → Token refresh → API calls</code>
+      </p>
+      <p style="color: #555; line-height: 1.7; font-size: 15px; margin-top: 6px;">
+        You do: <code style="background: rgba(240,131,157,0.1); color: #F0839D; padding: 2px 8px; border-radius: 6px;">Set API key → Make API calls directly</code>
+      </p>
+    </div>
+
+    <!-- Supported Services -->
+    <div class="section-card" style="background: #fff; border-radius: 24px; padding: 28px 26px; margin-bottom: 20px; box-shadow: 0 4px 24px rgba(240,131,157,0.12); border-top: 4px solid #F0839D; animation-delay: 0.05s;">
+      <h2 style="font-size: 22px; font-weight: 800; color: #3D3935; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        <span style="background: rgba(240,131,157,0.15); color: #F0839D; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 900;">2</span>
+        Supported Services
+      </h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+        <span class="api-badge">Google Workspace</span>
+        <span class="api-badge">Microsoft 365</span>
+        <span class="api-badge">GitHub</span>
+        <span class="api-badge">Slack</span>
+        <span class="api-badge">Notion</span>
+        <span class="api-badge">Airtable</span>
+        <span class="api-badge">HubSpot</span>
+        <span class="api-badge">Salesforce</span>
+        <span class="api-badge">Jira</span>
+        <span class="api-badge">Linear</span>
+        <span class="api-badge">Stripe</span>
+        <span class="api-badge">Shopify</span>
+        <span class="api-badge">Gmail API</span>
+        <span class="api-badge">Google Calendar</span>
+        <span class="api-badge">Google Drive</span>
+        <span class="api-badge">Outlook</span>
+        <span class="api-badge">Discord</span>
+        <span class="api-badge">+ 80 more</span>
+      </div>
+    </div>
+
+    <!-- Setup -->
+    <div class="section-card" style="background: #fff; border-radius: 24px; padding: 28px 26px; margin-bottom: 20px; box-shadow: 0 4px 24px rgba(240,131,157,0.12); border-top: 4px solid #F0839D; animation-delay: 0.1s;">
+      <h2 style="font-size: 22px; font-weight: 800; color: #3D3935; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        <span style="background: rgba(240,131,157,0.15); color: #F0839D; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 900;">3</span>
+        Setup in 3 Steps
+      </h2>
+
+      <div style="margin-bottom: 20px;">
+        <h3 style="font-size: 16px; font-weight: 700; color: #3D3935; margin-bottom: 8px;">Step 1 — Install the Skill</h3>
+        <div class="code-block">openclaw skills install api-gateway</div>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <h3 style="font-size: 16px; font-weight: 700; color: #3D3935; margin-bottom: 8px;">Step 2 — Get Your API Key</h3>
+        <ol style="color: #555; font-size: 14px; line-height: 1.8; padding-left: 20px;">
+          <li>Sign up at <a href="https://maton.ai" target="_blank" style="color: #F0839D; font-weight: 600;">maton.ai</a></li>
+          <li>Go to <strong>Settings → API Key</strong></li>
+          <li>Copy your API key</li>
+        </ol>
+      </div>
+
+      <div style="margin-bottom: 8px;">
+        <h3 style="font-size: 16px; font-weight: 700; color: #3D3935; margin-bottom: 8px;">Step 3 — Set Environment Variable</h3>
+        <div class="code-block">export MATON_API_KEY="your_matон_api_key_here"</div>
+      </div>
+    </div>
+
+    <!-- Base URL -->
+    <div class="section-card" style="background: #fff; border-radius: 24px; padding: 28px 26px; margin-bottom: 20px; box-shadow: 0 4px 24px rgba(240,131,157,0.12); border-top: 4px solid #8DA6B0; animation-delay: 0.15s;">
+      <h2 style="font-size: 22px; font-weight: 800; color: #3D3935; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+        <span style="background: rgba(141,166,176,0.2); color: #8DA6B0; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 900;">4</span>
+        The Base URL Pattern
+      </h2>
+      <p style="color: #555; font-size: 15px; line-height: 1.7; margin-bottom: 14px;">
+        All API calls use this format:
+      </p>
+      <div class="code-block" style="margin-bottom: 14px;">https://gateway.maton.ai/{app}/{native-api-path}</div>
+      <p style="color: #555; font-size: 14px; line-height: 1.6;">
+        Replace <code style="background: rgba(240,131,157,0.1); color: #F0839D; padding: 2px 6px; border-radius: 4px;">{app}</code> with the service name and <code style="background: rgba(240,131,157,0.1); color: #F0839D; padding: 2px 6px; border-radius: 4px;">{native-api-path}</code> with the actual API endpoint.
+      </p>
+      <div style="background: rgba(240,131,157,0.08); border: 1px solid rgba(240,131,157,0.2); border-radius: 12px; padding: 14px 16px; margin-top: 12px;">
+        <p style="color: #555; font-size: 13px;"><strong style="color: #F0839D;">Important:</strong> The URL path MUST start with the app name (e.g. <code>/google-mail/...</code>). This tells Maton which OAuth connection to use. For Gmail, the native path starts with <code>gmail/v1/</code> — full path: <code>/google-mail/gmail/v1/users/me/messages</code></p>
+      </div>
+    </div>
+
+    <!-- Authentication -->
+    <div class="section-card" style="background: #fff; border-radius: 24px; padding: 28px 26px; margin-bottom: 20px; box-shadow: 0 4px 24px rgba(240,131,157,0.12); border-top: 4px solid #37464F; animation-delay: 0.2s;">
+      <h2 style="font-size: 22px; font-weight: 800; color: #3D3935; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+        <span style="background: rgba(55,70,79,0.1); color: #37464F; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 900;">5</span>
+        Authentication Header
+      </h2>
+      <p style="color: #555; font-size: 15px; line-height: 1.7; margin-bottom: 12px;">Every request needs this header — Maton injects the OAuth token automatically:</p>
+      <div class="code-block">Authorization: Bearer $MATON_API_KEY</div>
+    </div>
+
+    <!-- Quick Start Examples -->
+    <div class="section-card" style="background: #fff; border-radius: 24px; padding: 28px 26px; margin-bottom: 20px; box-shadow: 0 4px 24px rgba(240,131,157,0.12); border-top: 4px solid #F0839D; animation-delay: 0.25s;">
+      <h2 style="font-size: 22px; font-weight: 800; color: #3D3935; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        <span style="background: rgba(240,131,157,0.15); color: #F0839D; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 900;">6</span>
+        Quick Start Examples
+      </h2>
+
+      <!-- Tab buttons -->
+      <div id="tab-buttons" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+        <button class="tab-btn active" data-tab="python" onclick="switchTab(this)">Python</button>
+        <button class="tab-btn" data-tab="node" onclick="switchTab(this)">Node.js</button>
+        <button class="tab-btn" data-tab="curl" onclick="switchTab(this)">cURL</button>
+      </div>
+
+      <!-- Python tab -->
+      <div id="tab-python" class="tab-content">
+        <h3 style="font-size: 14px; font-weight: 700; color: #8DA6B0; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Send a Slack message</h3>
+        <div class="code-block">import urllib.request, os, json
+
+data = json.dumps({'channel': 'C0123456', 'text': 'Hello from gateway!'}).encode()
+req = urllib.request.Request(
+    'https://gateway.maton.ai/slack/api/chat.postMessage',
+    data=data,
+    method='POST'
+)
+req.add_header('Authorization', f'Bearer {os.environ["MATON_API_KEY"]}')
+req.add_header('Content-Type', 'application/json')
+print(json.dumps(json.load(urllib.request.urlopen(req)), indent=2))</div>
+
+        <h3 style="font-size: 14px; font-weight: 700; color: #8DA6B0; margin: 16px 0 8px; text-transform: uppercase; letter-spacing: 0.05em;">List Slack connections</h3>
+        <div class="code-block">import urllib.request, os, json
+
+req = urllib.request.Request('https://ctrl.maton.ai/connections?app=slack&status=ACTIVE')
+req.add_header('Authorization', f'Bearer {os.environ["MATON_API_KEY"]}')
+print(json.dumps(json.load(urllib.request.urlopen(req)), indent=2))</div>
+      </div>
+
+      <!-- Node.js tab -->
+      <div id="tab-node" class="tab-content" style="display: none;">
+        <h3 style="font-size: 14px; font-weight: 700; color: #8DA6B0; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Send a Slack message</h3>
+        <div class="code-block">const res = await fetch('https://gateway.maton.ai/slack/api/chat.postMessage', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${process.env.MATON_API_KEY}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ channel: 'C0123456', text: 'Hello!' })
+});
+const data = await res.json();
+console.log(JSON.stringify(data, null, 2));</div>
+
+        <h3 style="font-size: 14px; font-weight: 700; color: #8DA6B0; margin: 16px 0 8px; text-transform: uppercase; letter-spacing: 0.05em;">List connections</h3>
+        <div class="code-block">const res = await fetch('https://ctrl.maton.ai/connections?app=slack&status=ACTIVE', {
+  headers: { 'Authorization': `Bearer ${process.env.MATON_API_KEY}` }
+});
+const { connections } = await res.json();
+console.log(connections);</div>
+      </div>
+
+      <!-- cURL tab -->
+      <div id="tab-curl" class="tab-content" style="display: none;">
+        <h3 style="font-size: 14px; font-weight: 700; color: #8DA6B0; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Send a Slack message</h3>
+        <div class="code-block">curl -X POST https://gateway.maton.ai/slack/api/chat.postMessage \
+  -H "Authorization: Bearer $MATON_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"channel": "C0123456", "text": "Hello from gateway!"}'</div>
+
+        <h3 style="font-size: 14px; font-weight: 700; color: #8DA6B0; margin: 16px 0 8px; text-transform: uppercase; letter-spacing: 0.05em;">List connections</h3>
+        <div class="code-block">curl "https://ctrl.maton.ai/connections?app=slack&status=ACTIVE" \
+  -H "Authorization: Bearer $MATON_API_KEY"</div>
+      </div>
+    </div>
+
+    <!-- Connection Management -->
+    <div class="section-card" style="background: #fff; border-radius: 24px; padding: 28px 26px; margin-bottom: 20px; box-shadow: 0 4px 24px rgba(240,131,157,0.12); border-top: 4px solid #F4A261; animation-delay: 0.3s;">
+      <h2 style="font-size: 22px; font-weight: 800; color: #3D3935; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        <span style="background: rgba(244,162,97,0.2); color: #F4A261; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 900;">7</span>
+        Connection Management
+      </h2>
+      <p style="color: #555; font-size: 15px; line-height: 1.7; margin-bottom: 16px;">
+        Manage OAuth connections via <code style="background: rgba(244,162,97,0.15); color: #F4A261; padding: 2px 8px; border-radius: 6px;">ctrl.maton.ai</code> — separate from the gateway API.
+      </p>
+
+      <div style="margin-bottom: 16px;">
+        <h3 style="font-size: 14px; font-weight: 700; color: #3D3935; margin-bottom: 8px;">List connections</h3>
+        <div class="code-block">GET https://ctrl.maton.ai/connections?app=slack&status=ACTIVE</div>
+        <p style="color: #555; font-size: 13px; margin-top: 6px;">Query params: <code style="color: #F0839D;">app</code> (service name), <code style="color: #F0839D;">status</code> (ACTIVE | PENDING | FAILED)</p>
+      </div>
+
+      <div style="margin-bottom: 16px;">
+        <h3 style="font-size: 14px; font-weight: 700; color: #3D3935; margin-bottom: 8px;">Create a connection</h3>
+        <div class="code-block">POST https://ctrl.maton.ai/connections
+Body: {"app": "slack", "method": "OAUTH2"}
+→ Returns a URL — open it in a browser to complete OAuth</div>
+      </div>
+
+      <div style="margin-bottom: 16px;">
+        <h3 style="font-size: 14px; font-weight: 700; color: #3D3935; margin-bottom: 8px;">Get connection status</h3>
+        <div class="code-block">GET https://ctrl.maton.ai/connections/{connection_id}</div>
+      </div>
+
+      <div>
+        <h3 style="font-size: 14px; font-weight: 700; color: #3D3935; margin-bottom: 8px;">Delete a connection</h3>
+        <div class="code-block">DELETE https://ctrl.maton.ai/connections/{connection_id}</div>
+      </div>
+    </div>
+
+    <!-- OpenClaw Integration -->
+    <div class="section-card" style="background: #fff; border-radius: 24px; padding: 28px 26px; margin-bottom: 20px; box-shadow: 0 4px 24px rgba(240,131,157,0.12); border-top: 4px solid #8DA6B0; animation-delay: 0.35s;">
+      <h2 style="font-size: 22px; font-weight: 800; color: #3D3935; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+        <span style="background: rgba(141,166,176,0.2); color: #8DA6B0; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 900;">8</span>
+        Using Inside OpenClaw
+      </h2>
+      <p style="color: #555; font-size: 15px; line-height: 1.7; margin-bottom: 14px;">
+        Once installed and configured, use the skill inside any OpenClaw agent. The agent can call APIs directly via <code style="background: rgba(240,131,157,0.1); color: #F0839D; padding: 2px 8px; border-radius: 6px;">exec</code> or a dedicated tool — letting it:
+      </p>
+      <ul style="color: #555; font-size: 15px; line-height: 1.8; padding-left: 20px;">
+        <li>Send Slack messages on your behalf</li>
+        <li>Read and write to Google Sheets</li>
+        <li>Create GitHub issues and PRs</li>
+        <li>Query HubSpot CRM data</li>
+        <li>Read/write Notion databases</li>
+        <li>Pull data from Airtable</li>
+      </ul>
+      <div style="background: rgba(141,166,176,0.12); border-radius: 12px; padding: 16px; margin-top: 16px; display: flex; gap: 14px; align-items: flex-start;">
+        <span style="font-size: 24px; flex-shrink: 0;">💡</span>
+        <p style="color: #555; font-size: 14px; line-height: 1.6;">Your OpenClaw agent becomes a <strong style="color: #3D3935;">universal API client</strong>. Tell it in plain English what to do — "send a message to #sales on Slack" — and it constructs and executes the API call automatically.</p>
+      </div>
+    </div>
+
+    <!-- ClawhHub -->
+    <div class="section-card" style="background: linear-gradient(135deg, #37464F 0%, #1a2a33 100%); border-radius: 24px; padding: 28px 26px; text-align: center; animation-delay: 0.4s;">
+      <h2 style="font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 10px;">Find More Skills on ClawhHub</h2>
+      <p style="color: rgba(255,255,255,0.65); font-size: 14px; margin-bottom: 18px; line-height: 1.6;">Browse 100s of OpenClaw skills at <strong>clawhub.ai</strong> — including the API Gateway and many more integrations.</p>
+      <a href="https://clawhub.ai/byungkyu/api-gateway" target="_blank" style="display: inline-block; background: #F0839D; color: #fff; padding: 12px 28px; border-radius: 30px; font-weight: 700; font-size: 15px; text-decoration: none; box-shadow: 0 4px 16px rgba(240,131,157,0.4);">View on ClawhHub →</a>
+    </div>
+
+    <!-- Navigation -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 32px; flex-wrap: wrap; gap: 12px;">
+      <a href="flashcards-module-2.html" style="display: flex; align-items: center; gap: 8px; color: #555; text-decoration: none; font-weight: 600; font-size: 14px;">
+        ← Back to Module 2 Flashcards
+      </a>
+      <a href="progress.html" style="display: flex; align-items: center; gap: 8px; background: #F0839D; color: #fff; padding: 10px 22px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 14px; box-shadow: 0 4px 12px rgba(240,131,157,0.3);">
+        📊 View Progress
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div style="text-align: center; padding: 24px 20px; color: rgba(61,57,53,0.4); font-size: 12px; border-top: 1px solid rgba(240,131,157,0.15); margin-top: 20px;">
+    AI Agent Upskill · Built with OpenClaw · Maton API Gateway by @byungkyu (MIT-0)
+  </div>
+
+  <script>
+    function switchTab(btn) {
+      document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+      document.querySelectorAll('.tab-content').forEach(function(c) { c.style.display = 'none'; });
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).style.display = 'block';
+    }
+  </script>
