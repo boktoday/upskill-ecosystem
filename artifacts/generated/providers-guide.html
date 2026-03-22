@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Providers Guide – AI Agent Upskill</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: linear-gradient(180deg, #FEF9EC 0%, #FFCD94 100%); min-height: 100vh; color: #3D3935; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+    .card { animation: fadeUp 0.4s ease both; }
+    .provider-card { transition: transform 0.2s, box-shadow 0.2s; cursor: default; }
+    .provider-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(240,131,157,0.2); }
+    .winner-badge { background: linear-gradient(135deg, #F0839D, #F4A261); color: #fff; padding: 12px 20px; border-radius: 12px; font-weight: 800; font-size: 15px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 16px rgba(240,131,157,0.35); }
+    .free-tag { background: #22c55e; color: #fff; padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+    .cheap-tag { background: rgba(240,131,157,0.15); color: #F0839D; padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+    .code-block { background: #37464F; border-radius: 12px; padding: 16px 18px; font-family: 'Courier New', monospace; font-size: 13px; color: #e2e8f0; overflow-x: auto; line-height: 1.8; margin: 8px 0; }
+    .tab-btn { padding: 7px 16px; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; border: 2px solid #eee; background: #fff; color: #555; transition: all 0.15s; }
+    .tab-btn.active { background: #F0839D; color: #fff; border-color: #F0839D; }
+    .comparison-row:hover { background: rgba(240,131,157,0.05); }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <div style="background:#F0839D; box-shadow: 0 2px 12px rgba(240,131,157,0.35); position: sticky; top: 0; z-index: 50;">
+    <div style="max-width: 960px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="background: #FEF9EC; color: #F0839D; font-weight: 800; font-size: 12px; padding: 3px 12px; border-radius: 999px;">AI Agent Upskill</span>
+        <span style="color: rgba(254,249,236,0.7); font-weight: 600;">|</span>
+        <span style="color: #FEF9EC; font-weight: 600; font-size: 14px;">AI Providers Guide</span>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <a href="progress.html" style="background: rgba(254,249,236,0.2); color: #FEF9EC; padding: 6px 14px; border-radius: 999px; font-weight: 600; font-size: 13px; text-decoration: none;">Progress →</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width: 960px; margin: 0 auto; padding: 32px 20px 60px;">
+
+    <!-- Hero -->
+    <div style="text-align: center; margin-bottom: 36px; animation: fadeUp 0.4s ease;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(240,131,157,0.15); color: #F0839D; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 700; margin-bottom: 16px; border: 1px solid rgba(240,131,157,0.3);">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+        OpenClaw AI Providers · Budget Edition
+      </div>
+      <h1 style="font-size: clamp(26px, 6vw, 48px); font-weight: 900; color: #3D3935; line-height: 1.1; margin-bottom: 12px;">
+        Power Your OpenClaw Agent<br/><span style="color: #F0839D;">for $10/Month or Less</span>
+      </h1>
+      <p style="color: #555; font-size: clamp(15px, 2.5vw, 17px); max-width: 560px; margin: 0 auto; line-height: 1.6;">
+        A practical comparison of Groq, OpenRouter, Ollama, and Qwen3.5-9B — so you can choose the best setup for your budget and use case.
+      </p>
+    </div>
+
+    <!-- Quick Summary Table -->
+    <div style="background: #fff; border-radius: 24px; padding: 24px 22px; margin-bottom: 24px; box-shadow: 0 4px 24px rgba(240,131,157,0.12); border-top: 4px solid #F0839D; animation: fadeUp 0.4s ease 0.05s both;">
+      <h2 style="font-size: 20px; font-weight: 800; color: #3D3935; margin-bottom: 16px;">At a Glance · $10/month</h2>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; min-width: 560px;">
+          <thead>
+            <tr style="border-bottom: 2px solid #FEF9EC;">
+              <th style="text-align: left; padding: 8px 12px; color: #555; font-size: 13px; font-weight: 600;">Provider</th>
+              <th style="text-align: center; padding: 8px 12px; color: #555; font-size: 13px; font-weight: 600;">Model</th>
+              <th style="text-align: center; padding: 8px 12px; color: #555; font-size: 13px; font-weight: 600;">Input / 1M</th>
+              <th style="text-align: center; padding: 8px 12px; color: #555; font-size: 13px; font-weight: 600;">Output / 1M</th>
+              <th style="text-align: center; padding: 8px 12px; color: #555; font-size: 13px; font-weight: 600;">Speed</th>
+              <th style="text-align: center; padding: 8px 12px; color: #555; font-size: 13px; font-weight: 600;">Best For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid #FEF9EC; background: rgba(240,131,157,0.06);">
+              <td style="padding: 12px; font-weight: 700; color: #3D3935; font-size: 14px;">🟣 Groq <span class="cheap-tag">★ Best Value</span></td>
+              <td style="padding: 12px; text-align: center; font-size: 13px; color: #555;">Llama 3.1 8B</td>
+              <td style="padding: 12px; text-align: center; font-size: 14px; font-weight: 800; color: #22c55e;">$0.05</td>
+              <td style="padding: 12px; text-align: center; font-size: 14px; font-weight: 800; color: #22c55e;">$0.08</td>
+              <td style="padding: 12px; text-align: center;"><span style="background: #22c55e; color: #fff; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700;">⚡ Fastest</span></td>
+              <td style="padding: 12px; text-align: center; font-size: 13px; color: #555;">Daily agent use</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #FEF9EC;" class="comparison-row">
+              <td style="padding: 12px; font-weight: 700; color: #3D3935; font-size: 14px;">🟠 OpenRouter</td>
+              <td style="padding: 12px; text-align: center; font-size: 13px; color: #555;">Qwen3.5 9B</td>
+              <td style="padding: 12px; text-align: center; font-size: 14px; font-weight: 800; color: #22c55e;">$0.05</td>
+              <td style="padding: 12px; text-align: center; font-size: 14px; font-weight: 800; color: #F4A261;">$0.20</td>
+              <td style="padding: 12px; text-align: center;"><span style="background: #F4A261; color: #fff; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700;">Fast</span></td>
+              <td style="padding: 12px; text-align: center; font-size: 13px; color: #555;">Coding + reasoning</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #FEF9EC;" class="comparison-row">
+              <td style="padding: 12px; font-weight: 700; color: #3D3935; font-size: 14px;">🟠 OpenRouter</td>
+              <td style="padding: 12px; text-align: center; font-size: 13px; color: #555;">DeepSeek V3</td>
+              <td style="padding: 12px; text-align: center; font-size: 14px; font-weight: 800; color: #22c55e;">$0.26</td>
+              <td style="padding: 12px; text-align: center; font-size: 14px; font-weight: 800; color: #F4A261;">$0.38</td>
+              <td style="padding: 12px; text-align: center;"><span style="background: #F4A261; color: #fff; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700;">Fast</span></td>
+              <td style="padding: 12px; text-align: center; font-size: 13px; color: #555;">General purpose</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #FEF9EC;" class="comparison-row">
+              <td style="padding: 12px; font-weight: 700; color: #3D3935; font-size: 14px;">🔵 Ollama <span class="free-tag">FREE</span></td>
+              <td style="padding: 12px; text-align: center; font-size: 13px; color: #555;">Qwen3.5 9B</td>
+              <td style="padding: 12px; text-align: center; font-size: 14px; font-weight: 800; color: #22c55e;">$0</td>
+              <td style="padding: 12px; text-align: center; font-size: 14px; font-weight: 800; color: #22c55e;">$0</td>
+              <td style="padding: 12px; text-align: center;"><span style="background: #8DA6B0; color: #fff; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700;">Local</span></td>
+              <td style="padding: 12px; text-align: center; font-size: 13px; color: #555;">Zero-cost dev</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #FEF9EC;" class="comparison-row">
+              <td style="padding: 12px; font-weight: 700; color: #3D3935; font-size: 14px;">🔷 MiniMax</td>
+              <td style="padding: 12px; text-align: center; font-size: 13px; color: #555;">M2.7 (API)</td>
+              <td style="padding: 12px; text-align: center; font-size: 14px; font-weight: 800; color: #F4A261;">$0.30</td>
+              <td style="padding: 12px; text-align: center; font-size: 14px; font-weight: 800; color: #F4A261;">$1.20</td>
+              <td style="padding: 12px; text-align: center;"><span style="background: #F4A261; color: #fff; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700;">Fast</span></td>
+              <td style="padding: 12px; text-align: center; font-size: 13px; color: #555;">Coding agents</td>
+            </tr>
+            <tr class="comparison-row">
+              <td style="padding: 12px; font-weight: 700; color: #3D3935; font-size: 14px;">🟢 OpenRouter Free</td>
+              <td style="padding: 12px; text-align: center; font-size: 13px; color: #555;">DeepSeek R1, Llama 3.3 70B</td>
+              <td style="padding: 12px; text-align: center; font-size: 14px; font-weight: 800; color: #22c55e;">$0</td>
+              <td style="padding: 12px; text-align: center; font-size: 14px; font-weight: 800; color: #22c55e;">$0</td>
+              <td style="padding: 12px; text-align: center;"><span style="background: #22c55e; color: #fff; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700;">Fast</span></td>
+              <td style="padding: 12px; text-align: center; font-size: 13px; color: #555;">Experimentation</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="color: #8DA6B0; font-size: 12px; margin-top: 12px; font-style: italic;">* Groq pricing as of March 2026 via groq.com · OpenRouter via openrouter.ai · Ollama runs locally on your hardware</p>
+    </div>
+
+    <!-- Winner Banner -->
+    <div style="text-align: center; margin-bottom: 32px; animation: fadeUp 0.4s ease 0.1s both;">
+      <div style="background: linear-gradient(135deg, #37464F, #1a2a33); border-radius: 20px; padding: 28px; display: inline-block;">
+        <p style="color: rgba(255,255,255,0.7); font-size: 14px; margin-bottom: 10px;">🏆 Best Overall for $10/month</p>
+        <div class="winner-badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Groq · Llama 3.1 8B Instant
+        </div>
+        <p style="color: rgba(255,255,255,0.6); font-size: 13px; margin-top: 10px;">~$130,000 input tokens per $10 · 128k context · OpenAI-compatible</p>
+      </div>
+    </div>
+
+    <!-- Provider Cards -->
+    <div style="display: grid; gap: 20px;">
+
+      <!-- GROQ -->
+      <div class="provider-card" style="background: #fff; border-radius: 24px; padding: 28px 26px; box-shadow: 0 4px 24px rgba(240,131,157,0.12); border-top: 5px solid #F0839D; animation: fadeUp 0.4s ease 0.1s both;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+              <h2 style="font-size: 22px; font-weight: 800; color: #3D3935;">🟣 Groq</h2>
+              <span class="cheap-tag" style="font-size: 12px; padding: 3px 12px;">★ Best Value · $10/month</span>
+            </div>
+            <p style="color: #555; font-size: 14px;">Custom LPU inference chips — hardware built for AI. Fastest inference on the market.</p>
+          </div>
+          <div style="text-align: right;">
+            <p style="font-size: 24px; font-weight: 900; color: #F0839D; line-height: 1;">$0.05</p>
+            <p style="font-size: 12px; color: #555;">input / 1M tokens</p>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px;">
+          <div style="background: #FEF9EC; border-radius: 10px; padding: 12px; text-align: center;">
+            <p style="font-weight: 800; color: #3D3935; font-size: 18px;">~130K</p>
+            <p style="color: #555; font-size: 12px;">messages / $10</p>
+          </div>
+          <div style="background: #FEF9EC; border-radius: 10px; padding: 12px; text-align: center;">
+            <p style="font-weight: 800; color: #3D3935; font-size: 18px;">128k</p>
+            <p style="color: #555; font-size: 12px;">context window</p>
+          </div>
+          <div style="background: #FEF9EC; border-radius: 10px; padding: 12px; text-align: center;">
+            <p style="font-weight: 800; color: #22c55e; font-size: 18px;">⚡ Fastest</p>
+            <p style="color: #555; font-size: 12px;">LPU hardware</p>
+          </div>
+          <div style="background: #FEF9EC; border-radius: 10px; padding: 12px; text-align: center;">
+            <p style="font-weight: 800; color: #3D3935; font-size: 18px;">OpenAI</p>
+            <p style="color: #555; font-size: 12px;">API compatible</p>
+          </div>
+        </div>
+
+        <h3 style="font-size: 15px; font-weight: 700; color: #3D3935; margin-bottom: 10px;">Recommended Models on Groq</h3>
+        <div style="overflow-x: auto; margin-bottom: 16px;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+            <thead><tr style="border-bottom: 1px solid #eee;"><th style="text-align:left;padding:6px 10px;color:#555;font-weight:600;">Model</th><th style="text-align:center;padding:6px 10px;color:#555;font-weight:600;">Input</th><th style="text-align:center;padding:6px 10px;color:#555;font-weight:600;">Output</th></tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid #f5f5f5;"><td style="padding:6px 10px;font-weight:700;color:#3D3935;">Llama 3.1 8B Instant <span style="color:#22c55e;font-size:11px;">★ RECOMMENDED</span></td><td style="text-align:center;color:#22c55e;font-weight:800;">$0.05</td><td style="text-align:center;color:#22c55e;font-weight:800;">$0.08</td></tr>
+              <tr style="border-bottom:1px solid #f5f5f5;"><td style="padding:6px 10px;color:#555;">GPT OSS 20B</td><td style="text-align:center;color:#555;">$0.075</td><td style="text-align:center;color:#555;">$0.30</td></tr>
+              <tr style="border-bottom:1px solid #f5f5f5;"><td style="padding:6px 10px;color:#555;">Llama 4 Scout 17B</td><td style="text-align:center;color:#555;">$0.11</td><td style="text-align:center;color:#555;">$0.34</td></tr>
+              <tr><td style="padding:6px 10px;color:#555;">Qwen3 32B</td><td style="text-align:center;color:#555;">$0.29</td><td style="text-align:center;color:#555;">$0.59</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="font-size: 14px; font-weight: 700; color: #3D3935; margin-bottom: 8px;">OpenClaw Config</h3>
+        <div class="code-block">{
+  "models": [
+    {
+      "provider": "groq",
+      "name": "llama-3.1-8b-instant",
+      "apiKey": "YOUR_GROQ_API_KEY"
+    }
+  ]
+}<p style="color: rgba(255,255,255,0.5); font-size: 11px; margin-top: 8px;">Get key at groq.com → Settings → API Keys. No credit card required.</p></div>
+      </div>
+
+      <!-- OLLAMA + QWEN3.5 9B -->
+      <div class="provider-card" style="background: #fff; border-radius: 24px; padding: 28px 26px; box-shadow: 0 4px 24px rgba(240,131,157,0.12); border-top: 5px solid #8DA6B0; animation: fadeUp 0.4s ease 0.15s both;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+              <h2 style="font-size: 22px; font-weight: 800; color: #3D3935;">🔵 Ollama + Qwen3.5 9B</h2>
+              <span class="free-tag" style="font-size: 12px; padding: 3px 12px;">$0 API Cost · 100% Free</span>
+            </div>
+            <p style="color: #555; font-size: 14px;">Run AI locally on your own hardware. No internet required. Zero token costs forever.</p>
+          </div>
+          <div style="text-align: right;">
+            <p style="font-size: 24px; font-weight: 900; color: #22c55e; line-height: 1;">FREE</p>
+            <p style="font-size: 12px; color: #555;">forever · no limits</p>
+          </div>
+        </div>
+
+        <div style="background: rgba(141,166,176,0.1); border: 1px solid rgba(141,166,176,0.3); border-radius: 14px; padding: 16px; margin-bottom: 20px;">
+          <p style="font-weight: 700; color: #3D3935; font-size: 15px; margin-bottom: 8px;">💡 How Ollama Works</p>
+          <p style="color: #555; font-size: 14px; line-height: 1.6;">Ollama downloads AI models to your computer and runs them locally. It exposes an <strong>OpenAI-compatible API</strong> on port 11434 — meaning OpenClaw connects to it just like any other API provider. Your computer becomes an AI server.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px;">
+          <div style="background: #FEF9EC; border-radius: 10px; padding: 12px; text-align: center;">
+            <p style="font-weight: 800; color: #22c55e; font-size: 18px;">$0</p>
+            <p style="color: #555; font-size: 12px;">API cost forever</p>
+          </div>
+          <div style="background: #FEF9EC; border-radius: 10px; padding: 12px; text-align: center;">
+            <p style="font-weight: 800; color: #3D3935; font-size: 18px;">~32k</p>
+            <p style="color: #555; font-size: 12px;">context window</p>
+          </div>
+          <div style="background: #FEF9EC; border-radius: 10px; padding: 12px; text-align: center;">
+            <p style="font-weight: 800; color: #3D3935; font-size: 18px;">Qwen3.5 9B</p>
+            <p style="color: #555; font-size: 12px;">9 billion parameters</p>
+          </div>
+          <div style="background: #FEF9EC; border-radius: 10px; padding: 12px; text-align: center;">
+            <p style="font-weight: 800; color: #8DA6B0; font-size: 18px;">Offline</p>
+            <p style="color: #555; font-size: 12px;">Works without internet</p>
+          </div>
+        </div>
+
+        <h3 style="font-size: 15px; font-weight: 700; color: #3D3935; margin-bottom: 10px;">Install Ollama (One Line)</h3>
+        <div class="code-block"># Linux / Mac / WSL
+curl -fsSL https://ollama.com/install.sh | sh</div>
+
+        <h3 style="font-size: 15px; font-weight: 700; color: #3D3935; margin: 16px 0 10px;">Pull Qwen3.5 9B</h3>
+        <div class="code-block"># Download and run Qwen3.5 9B (one time)
+ollama pull qwen3.5:9b
+
+# Verify it's installed
+ollama list</div>
+
+        <h3 style="font-size: 15px; font-weight: 700; color: #3D3935; margin: 16px 0 10px;">Test the API (OpenAI-compatible)</h3>
+        <div class="code-block"># Quick test — OpenAI format
+curl http://localhost:11434/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{"model": "qwen3.5:9b", "messages": [{"role": "user", "content": "Hello!"}]}'</div>
+
+        <h3 style="font-size: 15px; font-weight: 700; color: #3D3935; margin: 16px 0 10px;">OpenClaw Config</h3>
+        <div class="code-block">{
+  "models": [
+    {
+      "provider": "openai",
+      "name": "qwen3.5:9b",
+      "apiKey": "ollama",          // no real key needed — local
+      "baseUrl": "http://localhost:11434/v1"
+    }
+  ]
+}</div>
+
+        <div style="background: rgba(141,166,176,0.12); border-radius: 12px; padding: 14px 16px; margin-top: 16px;">
+          <p style="color: #555; font-size: 13px; line-height: 1.6;">
+            <strong style="color: #3D3935;">💻 Hardware needed:</strong> Qwen3.5 9B needs ~6GB RAM above your OS. Works great on any modern laptop with 16GB RAM. Use <code style="background: rgba(141,166,176,0.2); padding: 1px 6px; border-radius: 4px; color: #8DA6B0;">ollama run qwen3.5:9b</code> to start chatting directly.
+          </p>
+        </div>
+      </div>
+
+      <!-- OPENROUTER -->
+      <div class="provider-card" style="background: #fff; border-radius: 24px; padding: 28px 26px; box-shadow: 0 4px 24px rgba(240,131,157,0.12); border-top: 5px solid #F4A261; animation: fadeUp 0.4s ease 0.2s both;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+              <h2 style="font-size: 22px; font-weight: 800; color: #3D3935;">🟠 OpenRouter</h2>
+              <span style="background: #22c55e; color: #fff; padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 700;">FREE TIER</span>
+              <span class="cheap-tag" style="font-size: 12px; padding: 3px 12px;">Best Free Models</span>
+            </div>
+            <p style="color: #555; font-size: 14px;">One API key → access 300+ models. Includes free tiers for Gemini, DeepSeek R1, Llama 3.3 70B.</p>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px;">
+          <div style="background: #FEF9EC; border-radius: 10px; padding: 12px; text-align: center;">
+            <p style="font-weight: 800; color: #22c55e; font-size: 18px;">FREE</p>
+            <p style="color: #555; font-size: 12px;">24 free models</p>
+          </div>
+          <div style="background: #FEF9EC; border-radius: 10px; padding: 12px; text-align: center;">
+            <p style="font-weight: 800; color: #3D3935; font-size: 18px;">300+</p>
+            <p style="color: #555; font-size: 12px;">total models</p>
+          </div>
+          <div style="background: #FEF9EC; border-radius: 10px; padding: 12px; text-align: center;">
+            <p style="font-weight: 800; color: #22c55e; font-size: 18px;">$0.05</p>
+            <p style="color: #            <p style="color: #555; font-size: 12px;">Qwen3.5 9B input</p>
+          </div>
+          <div style="background: #FEF9EC; border-radius: 10px; padding: 12px; text-align: center;">
+            <p style="font-weight: 800; color: #3D3935; font-size: 18px;">OpenAI</p>
+            <p style="color: #555; font-size: 12px;">SDK compatible</p>
+          </div>
+        </div>
+
+        <h3 style="font-size: 15px; font-weight: 700; color: #3D3935; margin-bottom: 10px;">Best Free Models on OpenRouter</h3>
+        <div style="overflow-x: auto; margin-bottom: 16px;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+            <thead><tr style="border-bottom: 1px solid #eee;"><th style="text-align:left;padding:6px 10px;color:#555;font-weight:600;">Model</th><th style="text-align:center;padding:6px 10px;color:#555;font-weight:600;">Input</th><th style="text-align:center;padding:6px 10px;color:#555;font-weight:600;">Output</th><th style="text-align:center;padding:6px 10px;color:#555;font-weight:600;">Context</th></tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid #f5f5f5;"><td style="padding:6px 10px;color:#555;font-weight:700;">DeepSeek R1 (蒸馏 Reasoning)</td><td style="text-align:center;color:#22c55e;font-weight:800;">FREE</td><td style="text-align:center;color:#22c55e;font-weight:800;">FREE</td><td style="text-align:center;color:#555;">128k</td></tr>
+              <tr style="border-bottom:1px solid #f5f5f5;"><td style="padding:6px 10px;color:#555;font-weight:700;">Gemini 2.0 Flash</td><td style="text-align:center;color:#22c55e;font-weight:800;">FREE</td><td style="text-align:center;color:#22c55e;font-weight:800;">FREE</td><td style="text-align:center;color:#555;">1M</td></tr>
+              <tr style="border-bottom:1px solid #f5f5f5;"><td style="padding:6px 10px;color:#555;font-weight:700;">Llama 3.3 70B Instruct</td><td style="text-align:center;color:#22c55e;font-weight:800;">FREE</td><td style="text-align:center;color:#22c55e;font-weight:800;">FREE</td><td style="text-align:center;color:#555;">128k</td></tr>
+              <tr><td style="padding:6px 10px;color:#555;font-weight:700;">Qwen3.5 9B Instruct</td><td style="text-align:center;color:#22c55e;font-weight:800;">$0.05</td><td style="text-align:center;color:#F4A261;font-weight:800;">$0.20</td><td style="text-align:center;color:#555;">32k</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="font-size: 15px; font-weight: 700; color: #3D3935; margin-bottom: 8px;">OpenClaw Config (Free Tier)</h3>
+        <div class="code-block">{
+  "models": [
+    {
+      "provider": "openrouter",
+      "name": "deepseek/deepseek-r1",
+      "apiKey": "YOUR_OPENROUTER_KEY"
+    }
+  ]
+}<p style="color: rgba(255,255,255,0.5); font-size: 11px; margin-top: 8px;">Free at openrouter.ai · No credit card needed for free models</p></div>
+      </div>
+
+      <!-- MINIMAX -->
+      <div class="provider-card" style="background: #fff; border-radius: 24px; padding: 28px 26px; box-shadow: 0 4px 24px rgba(240,131,157,0.12); border-top: 5px solid #37464F; animation: fadeUp 0.4s ease 0.25s both;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+              <h2 style="font-size: 22px; font-weight: 800; color: #3D3935;">🔷 MiniMax · $10/month Subscription</h2>
+              <span class="cheap-tag" style="font-size: 12px; padding: 3px 12px;">Best for Coding</span>
+            </div>
+            <p style="color: #555; font-size: 14px;">Chinese AI lab. M2.7 scores 80.2% on coding benchmarks — almost the same as Claude Opus at 80.9% but 20x cheaper.</p>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px;">
+          <div style="background: #FEF9EC; border-radius: 10px; padding: 12px; text-align: center;">
+            <p style="font-weight: 800; color: #3D3935; font-size: 18px;">$10</p>
+            <p style="color: #555; font-size: 12px;">Starter plan / month</p>
+          </div>
+          <div style="background: #FEF9EC; border-radius: 10px; padding: 12px; text-align: center;">
+            <p style="font-weight: 800; color: #3D3935; font-size: 18px;">1,500</p>
+            <p style="color: #555; font-size: 12px;">M2.7 requests / 5hrs</p>
+          </div>
+          <div style="background: #FEF9EC; border-radius: 10px; padding: 12px; text-align: center;">
+            <p style="font-weight: 800; color: #22c55e; font-size: 18px;">80.2%</p>
+            <p style="color: #555; font-size: 12px;">Coding benchmark</p>
+          </div>
+          <div style="background: #FEF9EC; border-radius: 10px; padding: 12px; text-align: center;">
+            <p style="font-weight: 800; color: #3D3935; font-size: 18px;">1M</p>
+            <p style="color: #555; font-size: 12px;">context window</p>
+          </div>
+        </div>
+
+        <h3 style="font-size: 15px; font-weight: 700; color: #3D3935; margin-bottom: 10px;">MiniMax Token Plan — $10 Starter</h3>
+        <div style="overflow-x: auto; margin-bottom: 16px;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+            <thead><tr style="border-bottom: 1px solid #eee;"><th style="text-align:left;padding:6px 10px;color:#555;font-weight:600;">Plan</th><th style="text-align:center;padding:6px 10px;color:#555;font-weight:600;">Price</th><th style="text-align:center;padding:6px 10px;color:#555;font-weight:600;">M2.7 Requests</th><th style="text-align:center;padding:6px 10px;color:#555;font-weight:600;">Extras</th></tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid #f5f5f5; background: rgba(240,131,157,0.06);"><td style="padding:6px 10px;font-weight:700;color:#3D3935;">Starter</td><td style="text-align:center;font-weight:800;color:#22c55e;">$10/mo</td><td style="text-align:center;color:#555;">1,500 / 5hrs</td><td style="text-align:center;color:#555;">—</td></tr>
+              <tr style="border-bottom:1px solid #f5f5f5;"><td style="padding:6px 10px;font-weight:700;color:#3D3935;">Plus</td><td style="text-align:center;font-weight:800;color:#F4A261;">$20/mo</td><td style="text-align:center;color:#555;">4,500 / 5hrs</td><td style="text-align:center;color:#555;">TTS + Images</td></tr>
+              <tr><td style="padding:6px 10px;font-weight:700;color:#3D3935;">Max</td><td style="text-align:center;font-weight:800;color:#F4A261;">$50/mo</td><td style="text-align:center;color:#555;">15,000 / 5hrs</td><td style="text-align:center;color:#555;">+ Video + Music</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="font-size: 15px; font-weight: 700; color: #3D3935; margin-bottom: 8px;">OpenClaw Config (API Key)</h3>
+        <div class="code-block">{
+  "models": [
+    {
+      "provider": "minimax",
+      "name": "MiniMax-M2.7",
+      "apiKey": "YOUR_MINIMAX_API_KEY"
+    }
+  ]
+}<p style="color: rgba(255,255,255,0.5); font-size: 11px; margin-top: 8px;">Get key at platform.minimax.io → API Keys. Subscribe at platform.minimax.io/subscribe/token-plan</p></div>
+      </div>
+
+    </div>
+
+    <!-- Verdict -->
+    <div style="background: linear-gradient(135deg, #37464F, #1a2a33); border-radius: 24px; padding: 32px 28px; margin-top: 32px; text-align: center; animation: fadeUp 0.4s ease 0.3s both;">
+      <h2 style="font-size: 26px; font-weight: 900; color: #fff; margin-bottom: 16px;">My Verdict</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; text-align: left;">
+        <div style="background: rgba(255,255,255,0.08); border-radius: 14px; padding: 18px;">
+          <p style="font-weight: 800; color: #F0839D; margin-bottom: 6px; font-size: 15px;">🥇 First Choice</p>
+          <p style="color: rgba(255,255,255,0.85); font-size: 14px; line-height: 1.5;">Groq + Llama 3.1 8B — cheapest, fastest, most reliable for daily OpenClaw use.</p>
+        </div>
+        <div style="background: rgba(255,255,255,0.08); border-radius: 14px; padding: 18px;">
+          <p style="font-weight: 800; color: #22c55e; margin-bottom: 6px; font-size: 15px;">🥈 Zero Cost Dev</p>
+          <p style="color: rgba(255,255,255,0.85); font-size: 14px; line-height: 1.5;">Ollama + Qwen3.5 9B — free forever, works offline, great for learning.</p>
+        </div>
+        <div style="background: rgba(255,255,255,0.08); border-radius: 14px; padding: 18px;">
+          <p style="font-weight: 800; color: #FFCD94; margin-bottom: 6px; font-size: 15px;">🥉 Experimentation</p>
+          <p style="color: rgba(255,255,255,0.85); font-size: 14px; line-height: 1.5;">OpenRouter free tier — try Claude, Gemini, DeepSeek R1 at no cost.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 32px; flex-wrap: wrap; gap: 12px;">
+      <a href="progress.html" style="display: flex; align-items: center; gap: 8px; color: #555; text-decoration: none; font-weight: 600; font-size: 14px;">← Back to Progress</a>
+      <a href="maton-api-gateway.html" style="display: flex; align-items: center; gap: 8px; background: #F0839D; color: #fff; padding: 10px 22px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 14px; box-shadow: 0 4px 12px rgba(240,131,157,0.3);">Maton API Gateway →</a>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div style="text-align: center; padding: 24px 20px; color: rgba(61,57,53,0.4); font-size: 12px; border-top: 1px solid rgba(240,131,157,0.15); margin-top: 20px;">
+    AI Agent Upskill · Built with OpenClaw · Pricing data March 2026
+  </div>
+
+</body>
+</html>
