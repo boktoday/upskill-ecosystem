@@ -71,6 +71,35 @@ New practical build exercises:
 
 ---
 
+## Before You Start ⚠️
+
+**IMPORTANT: You need your own OpenClaw instance BEFORE starting the course.**
+
+### Setup Options
+
+| Platform | Guide |
+|----------|--------|
+| 🖥️ Old Laptop | [SETUP_GUIDE.md](./setup/SETUP_GUIDE.md) |
+| 📦 Mini PC | [SETUP_GUIDE.md](./setup/SETUP_GUIDE.md) |
+| 🐳 Docker | [SETUP_GUIDE.md](./setup/SETUP_GUIDE.md) |
+| 💻 WSL | [SETUP_GUIDE.md](./setup/SETUP_GUIDE.md) |
+| 🍎 Mac | [SETUP_GUIDE.md](./setup/SETUP_GUIDE.md) |
+
+### Quick Setup (5 minutes)
+
+```bash
+# Linux/Mac/WSL
+curl -sL https://get.openclaw.ai | bash
+
+# Or via npm
+npm install -g @openclaw/cli
+openclaw init
+```
+
+Then access: http://localhost:18789
+
+---
+
 ## The Architecture
 
 ```
