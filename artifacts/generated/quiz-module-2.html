@@ -6,267 +6,205 @@
   <title>Quiz — The Tech Stack of 2026</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; } body { font-family: system-ui, -apple-system, sans-serif; }
-    body { background: linear-gradient(180deg, #FEF9EC 0%, #F4A261 100%); min-height: 100vh; color: #3D3935; }
-    @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-    .q-card { animation: fadeUp 0.35s ease both; }
-    .opt { cursor:pointer; }
-    .opt:hover { border-color: #F0839D !important; background: rgba(240,131,157,0.06) !important; }
-    .opt.selected { border-color: #F0839D !important; background: rgba(240,131,157,0.1) !important; }
-    .opt.correct { border-color: #22c55e !important; background: rgba(34,197,94,0.1) !important; }
-    .opt.wrong { border-color: #ef4444 !important; background: rgba(239,68,68,0.1) !important; }
+    *{box-sizing:border-box;margin:0;padding:0}body{font-family:system-ui,-apple-system,sans-serif}
+    body{background:linear-gradient(180deg,#FEF9EC 0%,#F4A261 100%);min-height:100vh;color:#3D3935}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    .q-card{animation:fadeUp 0.35s ease both}
+    .opt{cursor:pointer}
+    .opt:hover{border-color:#F0839D!important;background:rgba(240,131,157,0.06)!important}
+    .opt.selected{border-color:#F0839D!important;background:rgba(240,131,157,0.1)!important}
+    .opt.correct{border-color:#22c55e!important;background:rgba(34,197,94,0.1)!important}
+    .opt.wrong{border-color:#ef4444!important;background:rgba(239,68,68,0.1)!important}
+    .question-block{background:#fff;border-radius:16px;padding:24px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border-left:4px solid #F0839D}
+.q-text{font-size:16px;margin-bottom:14px;color:#3D3935}
+.options label{display:block;padding:10px 14px;margin-bottom:8px;border-radius:10px;cursor:pointer;font-size:15px;border:1.5px solid #eee;transition:all 0.15s}
+.options label:hover{border-color:#F0839D;background:#fef9ec}
+.options input[type=radio]{margin-right:10px}
   </style>
 </head>
 <body>
-  <div style="max-width:720px; margin:0 auto; padding:28px 16px 80px;">
-
-    <div style="text-align:center; margin-bottom:24px;">
-  <span style="display:inline-flex; align-items:center; gap:6px; background:#F0839D; color:#fff; padding:5px 14px; border-radius:20px; font-size:12px; font-weight:600;">
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-    AI Agent Upskill
-  </span>
-</div>
-
-    <div style="text-align:center; margin-bottom:28px;">
-      <h1 style="font-size:clamp(22px,5vw,36px); font-weight:900; color:#3D3935; line-height:1.15; margin-bottom:6px;">The Tech Stack of 2026</h1>
-      <p style="color:#555; font-size:14px;">Select answers · Instant feedback · See your score</p>
+  <div style="max-width:720px;margin:0 auto;padding:28px 16px 80px">
+    <div style="text-align:center;margin-bottom:24px">
+      <span style="display:inline-flex;align-items:center;gap:6px;background:#F0839D;color:#fff;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+        AI Agent Upskill
+      </span>
     </div>
-
-    <div style="position:fixed; top:16px; right:16px; background:#37464F; color:#fff; border-radius:16px; padding:12px 16px; z-index:50; text-align:center; box-shadow:0 4px 20px rgba(0,0,0,0.15);">
-  <p style="font-size:11px; color:rgba(255,255,255,0.65); margin-bottom:1px;">Score</p>
-  <p id="score" style="font-size:32px; font-weight:900; color:#F0839D; line-height:1.2;">0</p>
-  <p style="font-size:11px; color:rgba(255,255,255,0.45);">/ 5</p>
+    <div style="text-align:center;margin-bottom:28px">
+      <h1 style="font-size:clamp(22px,5vw,36px);font-weight:900;color:#3D3935;line-height:1.15;margin-bottom:6px">The Tech Stack of 2026</h1>
+      <p style="color:#555;font-size:14px">Select answers · Instant feedback · See your score</p>
+    </div>
+    <div style="position:fixed;top:16px;right:16px;background:#37464F;color:#fff;border-radius:16px;padding:12px 16px;z-index:50;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.15)">
+      <p style="font-size:11px;color:rgba(255,255,255,0.65);margin-bottom:1px">Score</p>
+      <p id="score" style="font-size:32px;font-weight:900;color:#F0839D;line-height:1.2">0</p>
+      <p style="font-size:11px;color:rgba(255,255,255,0.45)">/ 6</p>
+    </div>
+    <div style="text-align:center;margin-bottom:24px;">
+  <label style="font-size:15px;color:#3D3935;">Quiz mode: </label>
+  <button id="btn-one" onclick="setMode('one')" style="background:#F0839D;color:white;border:none;padding:6px 16px;border-radius:20px;cursor:pointer;font-size:14px;margin-left:8px;">One at a time</button>
+  <button id="btn-all" onclick="setMode('all')" style="background:#e0e0e0;color:#555;border:none;padding:6px 16px;border-radius:20px;cursor:pointer;font-size:14px;">Show all</button>
 </div>
-
-    <form id="quiz-form">
-      <div class="q-card" style="background:#fff; border-radius:20px; padding:22px 20px; margin-bottom:18px; box-shadow:0 4px 20px rgba(240,131,157,0.12); border-top:4px solid #F0839D; animation-delay:0.06s;">
-        <p style="font-size:clamp(15px,3vw,17px); font-weight:700; color:#3D3935; margin-bottom:14px; line-height:1.45;">Q1. What does RAG stand for?</p>
-        <div class="options">
-          <div class="opt" data-correct="1" onclick="selectOpt(this, 1)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">A</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">Run, Act, Generate</span>
-          </div>
-          <div class="opt" data-correct="1" onclick="selectOpt(this, 1)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">B</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">Retrieval-Augmented Generation</span>
-          </div>
-          <div class="opt" data-correct="1" onclick="selectOpt(this, 1)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">C</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">Real-time AI Gateway</span>
-          </div>
-          <div class="opt" data-correct="1" onclick="selectOpt(this, 1)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">D</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">Recursive Answer Grouping</span>
-          </div>
-        </div>
-        <div class="feedback-box" style="display:none;">
-          <p class="fb-text" style="font-weight:700;"></p>
-          <p class="exp-text" style="margin-top:4px; font-size:13px;"></p>
-        </div>
-      </div>
-      <div class="q-card" style="background:#fff; border-radius:20px; padding:22px 20px; margin-bottom:18px; box-shadow:0 4px 20px rgba(240,131,157,0.12); border-top:4px solid #F0839D; animation-delay:0.12s;">
-        <p style="font-size:clamp(15px,3vw,17px); font-weight:700; color:#3D3935; margin-bottom:14px; line-height:1.45;">Q2. Which is NOT a major AI model provider?</p>
-        <div class="options">
-          <div class="opt" data-correct="3" onclick="selectOpt(this, 2)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">A</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">OpenRouter</span>
-          </div>
-          <div class="opt" data-correct="3" onclick="selectOpt(this, 2)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">B</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">Anthropic</span>
-          </div>
-          <div class="opt" data-correct="3" onclick="selectOpt(this, 2)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">C</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">Maton.ai</span>
-          </div>
-          <div class="opt" data-correct="3" onclick="selectOpt(this, 2)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">D</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">Nvidia</span>
-          </div>
-        </div>
-        <div class="feedback-box" style="display:none;">
-          <p class="fb-text" style="font-weight:700;"></p>
-          <p class="exp-text" style="margin-top:4px; font-size:13px;"></p>
-        </div>
-      </div>
-      <div class="q-card" style="background:#fff; border-radius:20px; padding:22px 20px; margin-bottom:18px; box-shadow:0 4px 20px rgba(240,131,157,0.12); border-top:4px solid #F0839D; animation-delay:0.18s;">
-        <p style="font-size:clamp(15px,3vw,17px); font-weight:700; color:#3D3935; margin-bottom:14px; line-height:1.45;">Q3. What is a context window?</p>
-        <div class="options">
-          <div class="opt" data-correct="1" onclick="selectOpt(this, 3)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">A</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">The size of the app window on screen</span>
-          </div>
-          <div class="opt" data-correct="1" onclick="selectOpt(this, 3)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">B</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">The amount of text an AI can process at once</span>
-          </div>
-          <div class="opt" data-correct="1" onclick="selectOpt(this, 3)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">C</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">A security feature in AI</span>
-          </div>
-          <div class="opt" data-correct="1" onclick="selectOpt(this, 3)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">D</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">The time it takes AI to respond</span>
-          </div>
-        </div>
-        <div class="feedback-box" style="display:none;">
-          <p class="fb-text" style="font-weight:700;"></p>
-          <p class="exp-text" style="margin-top:4px; font-size:13px;"></p>
-        </div>
-      </div>
-      <div class="q-card" style="background:#fff; border-radius:20px; padding:22px 20px; margin-bottom:18px; box-shadow:0 4px 20px rgba(240,131,157,0.12); border-top:4px solid #F0839D; animation-delay:0.24s;">
-        <p style="font-size:clamp(15px,3vw,17px); font-weight:700; color:#3D3935; margin-bottom:14px; line-height:1.45;">Q4. What is prompt engineering?</p>
-        <div class="options">
-          <div class="opt" data-correct="1" onclick="selectOpt(this, 4)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">A</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">Building hardware for AI</span>
-          </div>
-          <div class="opt" data-correct="1" onclick="selectOpt(this, 4)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">B</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">Writing effective inputs to get better AI outputs</span>
-          </div>
-          <div class="opt" data-correct="1" onclick="selectOpt(this, 4)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">C</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">Training AI models</span>
-          </div>
-          <div class="opt" data-correct="1" onclick="selectOpt(this, 4)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">D</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">Securing AI systems</span>
-          </div>
-        </div>
-        <div class="feedback-box" style="display:none;">
-          <p class="fb-text" style="font-weight:700;"></p>
-          <p class="exp-text" style="margin-top:4px; font-size:13px;"></p>
-        </div>
-      </div>
-      <div class="q-card" style="background:#fff; border-radius:20px; padding:22px 20px; margin-bottom:18px; box-shadow:0 4px 20px rgba(240,131,157,0.12); border-top:4px solid #F0839D; animation-delay:0.3s;">
-        <p style="font-size:clamp(15px,3vw,17px); font-weight:700; color:#3D3935; margin-bottom:14px; line-height:1.45;">Q5. What does 'model temperature' control?</p>
-        <div class="options">
-          <div class="opt" data-correct="1" onclick="selectOpt(this, 5)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">A</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">How fast the AI responds</span>
-          </div>
-          <div class="opt" data-correct="1" onclick="selectOpt(this, 5)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">B</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">The creativity vs. determinism of responses</span>
-          </div>
-          <div class="opt" data-correct="1" onclick="selectOpt(this, 5)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">C</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">The cost of API calls</span>
-          </div>
-          <div class="opt" data-correct="1" onclick="selectOpt(this, 5)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">D</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">The size of the model</span>
-          </div>
-        </div>
-        <div class="feedback-box" style="display:none;">
-          <p class="fb-text" style="font-weight:700;"></p>
-          <p class="exp-text" style="margin-top:4px; font-size:13px;"></p>
-        </div>
-      </div>
-    
-      <div class="q-card" style="background:#fff; border-radius:20px; padding:22px 20px; margin-bottom:18px; box-shadow:0 4px 20px rgba(240,131,157,0.12); border-top:4px solid #F4A261; animation-delay:0.3s;">
-        <p style="font-size:clamp(15px,3vw,17px); font-weight:700; color:#3D3935; margin-bottom:14px; line-height:1.45;">Q6. What does the Maton API Gateway do for OpenClaw agents?</p>
-        <div class="options">
-          <div class="opt" data-correct="2" onclick="selectOpt(this, 6)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">A</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">Hosts OpenClaw on a server</span>
-          </div>
-          <div class="opt" data-correct="2" onclick="selectOpt(this, 6)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">B</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">Replaces the need for AI models</span>
-          </div>
-          <div class="opt" data-correct="2" onclick="selectOpt(this, 6)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">C</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">Connects OpenClaw to 100+ APIs with managed OAuth</span>
-          </div>
-          <div class="opt" data-correct="2" onclick="selectOpt(this, 6)" style="display:flex; align-items:center; padding:13px 14px; border-radius:12px; border:2px solid #eee; cursor:pointer; margin-bottom:8px; transition:all 0.15s; background:#fff;">
-            <span style="width:34px; height:34px; border-radius:50%; background:#F0839D; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-right:12px; flex-shrink:0;">D</span>
-            <span style="flex:1; color:#555; font-size:clamp(14px,2.5vw,15px); line-height:1.4;">Creates AI agents automatically</span>
-          </div>
-        </div>
-        <div class="feedback-box" style="display:none;">
-          <p class="fb-text" style="font-weight:700;"></p>
-          <p class="exp-text" style="margin-top:4px; font-size:13px;"></p>
-        </div>
-      </div>
-    </form>
-
-    <div style="text-align:center; margin-top:8px; padding-bottom:20px;">
-  <button type="submit" style="background:linear-gradient(135deg,#F0839D,#e0708a); color:#fff; padding:15px 36px; border-radius:30px; font-weight:700; font-size:16px; border:none; cursor:pointer; box-shadow:0 4px 20px rgba(240,131,157,0.35);">
-    See Final Score
-  </button>
+    <div id="quiz-container">
+<div class="question-block" data-q="1" data-answer="b">
+  <p class="q-text"><strong>1.</strong> What does RAG stand for?</p>
+  <div class="options">
+      <label><input type="radio" name="q1" value="a"> Run, Act, Generate</label>
+      <label><input type="radio" name="q1" value="b"> Retrieval-Augmented Generation</label>
+      <label><input type="radio" name="q1" value="c"> Real-time AI Gateway</label>
+      <label><input type="radio" name="q1" value="d"> Recursive Answer Grouping</label>
+  </div>
+  <div class="correct-note" style="display:none;">Retrieval-Augmented Generation</div>
+  <div class="feedback" id="feedback-1" style="display:none;margin-top:10px;padding:12px;border-radius:10px;"></div>
 </div>
-    <div id="results" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); align-items:center; justify-content:center; z-index:100; padding:20px;">
-  <div style="background:#fff; border-radius:24px; padding:40px 32px; max-width:420px; width:100%; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.25);">
-    <div id="res-icon" style="font-size:52px; margin-bottom:14px;"></div>
-    <h2 id="res-title" style="font-size:24px; font-weight:900; color:#3D3935; margin-bottom:8px;"></h2>
-    <p id="res-msg" style="color:#555; margin-bottom:20px; font-size:14px;"></p>
-    <p id="res-score" style="font-size:48px; font-weight:900; color:#F0839D; margin-bottom:22px;"></p>
-    <a href="progress.html" style="display:block; background:#F0839D; color:#fff; padding:13px; border-radius:14px; font-weight:700; margin-bottom:10px; text-decoration:none; font-size:15px;">View Progress</a>
-    <button onclick="document.getElementById('results').style.display=\'none\'" style="width:100%; padding:12px; background:#f5f5f5; border:none; border-radius:14px; color:#555; font-weight:600; cursor:pointer;">Close</button>
+<div class="question-block" data-q="2" data-answer="c">
+  <p class="q-text"><strong>2.</strong> Which is NOT a major AI model provider?</p>
+  <div class="options">
+      <label><input type="radio" name="q2" value="a"> OpenRouter</label>
+      <label><input type="radio" name="q2" value="b"> Anthropic</label>
+      <label><input type="radio" name="q2" value="c"> Maton.ai</label>
+      <label><input type="radio" name="q2" value="d"> Nvidia</label>
+  </div>
+  <div class="correct-note" style="display:none;">Maton.ai</div>
+  <div class="feedback" id="feedback-2" style="display:none;margin-top:10px;padding:12px;border-radius:10px;"></div>
+</div>
+<div class="question-block" data-q="3" data-answer="b">
+  <p class="q-text"><strong>3.</strong> What is a context window?</p>
+  <div class="options">
+      <label><input type="radio" name="q3" value="a"> The size of the app window on screen</label>
+      <label><input type="radio" name="q3" value="b"> The amount of text an AI can process at once</label>
+      <label><input type="radio" name="q3" value="c"> A security feature in AI</label>
+      <label><input type="radio" name="q3" value="d"> The time it takes AI to respond</label>
+  </div>
+  <div class="correct-note" style="display:none;">The amount of text an AI can process at once</div>
+  <div class="feedback" id="feedback-3" style="display:none;margin-top:10px;padding:12px;border-radius:10px;"></div>
+</div>
+<div class="question-block" data-q="4" data-answer="b">
+  <p class="q-text"><strong>4.</strong> What is prompt engineering?</p>
+  <div class="options">
+      <label><input type="radio" name="q4" value="a"> Building hardware for AI</label>
+      <label><input type="radio" name="q4" value="b"> Writing effective inputs to get better AI outputs</label>
+      <label><input type="radio" name="q4" value="c"> Training AI models</label>
+      <label><input type="radio" name="q4" value="d"> Securing AI systems</label>
+  </div>
+  <div class="correct-note" style="display:none;">Writing effective inputs to get better AI outputs</div>
+  <div class="feedback" id="feedback-4" style="display:none;margin-top:10px;padding:12px;border-radius:10px;"></div>
+</div>
+<div class="question-block" data-q="5" data-answer="b">
+  <p class="q-text"><strong>5.</strong> What does 'model temperature' control?</p>
+  <div class="options">
+      <label><input type="radio" name="q5" value="a"> How fast the AI responds</label>
+      <label><input type="radio" name="q5" value="b"> The creativity vs. determinism of responses</label>
+      <label><input type="radio" name="q5" value="c"> The cost of API calls</label>
+      <label><input type="radio" name="q5" value="d"> The size of the model</label>
+  </div>
+  <div class="correct-note" style="display:none;">The creativity vs. determinism of responses</div>
+  <div class="feedback" id="feedback-5" style="display:none;margin-top:10px;padding:12px;border-radius:10px;"></div>
+</div>
+<div class="question-block" data-q="6" data-answer="c">
+  <p class="q-text"><strong>6.</strong> What does the Maton API Gateway do for OpenClaw agents?</p>
+  <div class="options">
+      <label><input type="radio" name="q6" value="a"> Hosts OpenClaw on a server</label>
+      <label><input type="radio" name="q6" value="b"> Replaces the need for AI models</label>
+      <label><input type="radio" name="q6" value="c"> Connects OpenClaw to 100+ APIs with managed OAuth</label>
+      <label><input type="radio" name="q6" value="d"> Creates AI agents automatically</label>
+  </div>
+  <div class="correct-note" style="display:none;">Connects OpenClaw to 100+ APIs with managed OAuth</div>
+  <div class="feedback" id="feedback-6" style="display:none;margin-top:10px;padding:12px;border-radius:10px;"></div>
+</div>
+    </div>
+    <div id="quiz-nav" style="display:none;justify-content:center;gap:12px;align-items:center;margin:20px 0;flex-wrap:wrap;">
+  <button onclick="prevQuestion()" id="prev-btn" style="background:#e0e0e0;color:#3D3935;border:none;padding:10px 20px;border-radius:25px;cursor:pointer;font-size:15px;">← Previous</button>
+  <button onclick="nextQuestion()" id="next-btn" style="background:#F0839D;color:white;border:none;padding:10px 20px;border-radius:25px;cursor:pointer;font-size:15px;">Next →</button>
+  <button onclick="submitQuiz()" id="submit-btn" style="display:none;background:#37464F;color:white;border:none;padding:10px 24px;border-radius:25px;cursor:pointer;font-size:15px;">Submit Quiz ✓</button>
+</div>
+<div id="result" style="display:none;text-align:center;font-size:20px;font-weight:bold;margin:20px 0;color:#F0839D;"></div>
+<button onclick="retakeQuiz()" id="retake-btn" style="display:none;margin:0 auto;background:none;border:2px solid #F0839D;color:#F0839D;padding:10px 24px;border-radius:25px;cursor:pointer;font-size:15px;">Retake Quiz</button>
+    <div id="results" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);align-items:center;justify-content:center;z-index:100;padding:20px;">
+  <div style="background:#fff;border-radius:24px;padding:40px 32px;max-width:420px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.25);">
+    <div id="res-icon" style="font-size:52px;margin-bottom:14px;"></div>
+    <h2 id="res-title" style="font-size:24px;font-weight:900;color:#3D3935;margin-bottom:8px;"></h2>
+    <p id="res-msg" style="color:#555;margin-bottom:20px;font-size:14px;"></p>
+    <p id="res-score" style="font-size:48px;font-weight:900;color:#F0839D;margin-bottom:22px;"></p>
+    <a href="progress.html" style="display:block;background:#F0839D;color:#fff;padding:13px;border-radius:14px;font-weight:700;margin-bottom:10px;text-decoration:none;font-size:15px;">View Progress</a>
+    <button onclick="document.getElementById('results').style.display='none'" style="width:100%;padding:12px;background:#f5f5f5;border:none;border-radius:14px;color:#555;font-weight:600;cursor:pointer;">Close</button>
   </div>
 </div>
   </div>
-
-  
-<script>
-var score = 0;
-var total = 5;
-
-function selectOpt(el, qNum) {
-  var card = el.closest('.q-card');
-  var allOpts = card.querySelectorAll('.opt');
-  var fb = card.querySelector('.feedback-box');
-  var correct = parseInt(el.dataset.correct);
-
-  allOpts.forEach(function(x) {
-    x.classList.remove('selected','correct','wrong');
-  });
-  fb.style.display = 'none';
-  el.classList.add('selected');
-
-  var radios = card.querySelectorAll('input[type=radio]');
-  var selVal = 0;
-  radios.forEach(function(r,i) { if(r.checked) selVal = i; });
-
-  fb.style.display = 'block';
-  var fbText = fb.querySelector('.fb-text');
-  var expText = fb.querySelector('.exp-text');
-
-  if (selVal === correct) {
-    el.classList.add('correct');
-    fbText.textContent = 'Correct!';
-    fbText.style.color = '#16a34a';
-    expText.textContent = '';
-    fb.style.cssText = 'display:block; margin-top:10px; padding:12px; border-radius:10px; background:rgba(34,197,94,0.08); border:1px solid rgba(34,197,94,0.2);';
-    score++;
-    document.getElementById('score').textContent = score;
-  } else {
-    el.classList.add('wrong');
-    allOpts[correct].classList.add('correct');
-    fbText.textContent = 'Incorrect';
-    fbText.style.color = '#dc2626';
-    expText.textContent = '';
-    fb.style.cssText = 'display:block; margin-top:10px; padding:12px; border-radius:10px; background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.2);';
+  <script>
+(function(){
+  var TOTAL=6;
+  function setMode(mode){
+    var blocks=document.querySelectorAll('.question-block');
+    var nav=document.getElementById('quiz-nav');
+    var btnOne=document.getElementById('btn-one');
+    var btnAll=document.getElementById('btn-all');
+    if(mode==='one'){
+      blocks.forEach(function(b,i){b.style.display=i===0?'block':'none'});
+      nav.style.display='flex';
+      btnOne.style.background='#F0839D';btnOne.style.color='white';
+      btnAll.style.background='#e0e0e0';btnAll.style.color='#555';
+      window.currentQ=0;updateNavButtons();
+    }else{
+      blocks.forEach(function(b){b.style.display='block'});
+      nav.style.display='none';
+      btnAll.style.background='#F0839D';btnAll.style.color='white';
+      btnOne.style.background='#e0e0e0';btnOne.style.color='#555';
+    }
   }
-}
-
-document.getElementById('quiz-form').addEventListener('submit', function(e) {
-  e.preventDefault();
-  var pct = Math.round((score / total) * 100);
-  var icon = document.getElementById('res-icon');
-  var title = document.getElementById('res-title');
-  var msg = document.getElementById('res-msg');
-  var scEl = document.getElementById('res-score');
-  var box = document.getElementById('results');
-  scEl.textContent = score + '/' + total;
-  if (pct >= 80) { icon.textContent='Trophy'; title.textContent='Excellent!'; msg.textContent="You mastered this module!"; }
-  else if (pct >= 60) { icon.textContent='ThumbsUp'; title.textContent='Good Job!'; msg.textContent='Review flashcards to strengthen understanding.'; }
-  else if (pct >= 40) { icon.textContent='BookOpen'; title.textContent='Keep Learning!'; msg.textContent='Review material and try again.'; }
-  else { icon.textContent='Fire'; title.textContent="Don't Give Up!"; msg.textContent='Study flashcards first, then retry.'; }
-  box.style.display = 'flex';
-});
+  var currentQ=0;
+  function showQuestion(index){
+    var blocks=document.querySelectorAll('.question-block');
+    blocks.forEach(function(b,i){b.style.display=i===index?'block':'none'});
+    currentQ=index;updateNavButtons();
+  }
+  function updateNavButtons(){
+    var prevBtn=document.getElementById('prev-btn');
+    var nextBtn=document.getElementById('next-btn');
+    var submitBtn=document.getElementById('submit-btn');
+    var blocks=document.querySelectorAll('.question-block');
+    prevBtn.disabled=currentQ===0;
+    prevBtn.style.opacity=currentQ===0?'0.4':'1';
+    if(currentQ===blocks.length-1){nextBtn.style.display='none';submitBtn.style.display='inline-flex'}
+    else{nextBtn.style.display='inline-flex';submitBtn.style.display='none'}
+  }
+  function nextQuestion(){var blocks=document.querySelectorAll('.question-block');if(currentQ<blocks.length-1)showQuestion(currentQ+1)}
+  function prevQuestion(){if(currentQ>0)showQuestion(currentQ-1)}
+  function submitQuiz(){
+    var blocks=document.querySelectorAll('.question-block');
+    var score=0;var total=blocks.length;
+    blocks.forEach(function(block,i){
+      var selected=block.querySelector('input[name="q'+(i+1)+'"]:checked');
+      var feedback=document.getElementById('feedback-'+(i+1));
+      feedback.style.display='block';
+      if(selected){
+        if(selected.value===blocks[i].dataset.answer){
+          score++;
+          feedback.style.background='#d4edda';feedback.style.color='#155724';
+          feedback.innerHTML='<strong>Correct!</strong> '+(blocks[i].querySelector('.correct-note')?blocks[i].querySelector('.correct-note').innerHTML:'');
+        }else{
+          feedback.style.background='#f8d7da';feedback.style.color='#721c24';
+          feedback.innerHTML='<strong>Incorrect.</strong> '+(blocks[i].querySelector('.correct-note')?blocks[i].querySelector('.correct-note').innerHTML:'');
+        }
+      }else{
+        feedback.style.background='#fff3cd';feedback.style.color='#856404';
+        feedback.innerHTML='<strong>No answer selected.</strong> The correct answer was: '+blocks[i].dataset.answer.toUpperCase();
+      }
+    });
+    var pct=Math.round((score/total)*100);
+    document.getElementById('result').style.display='block';
+    document.getElementById('result').innerHTML='Your score: '+score+'/'+total+' ('+pct+'%)';
+    document.getElementById('quiz-nav').style.display='none';
+    document.getElementById('retake-btn').style.display='inline-flex';
+  }
+  function retakeQuiz(){
+    document.querySelectorAll('input[type=radio]').forEach(function(i){i.checked=false});
+    document.querySelectorAll('.feedback').forEach(function(f){f.style.display='none'});
+    document.getElementById('result').style.display='none';
+    document.getElementById('retake-btn').style.display='none';
+    setMode('one');
+  }
+  window.addEventListener('DOMContentLoaded',function(){setMode('one')});
+})();
 </script>
 </body>
 </html>
